@@ -18,7 +18,7 @@ import javax.persistence.Table
  */
 @Entity
 @EqualsAndHashCode
-@ToString
+@ToString(includeNames = true, includeFields = true)
 @Table(name = "movie", indexes = @Index(columnList = "title"))
 class Movie implements Serializable
 {
@@ -31,13 +31,16 @@ class Movie implements Serializable
    @Lob
    String description
 
+   int theMovieDBid
+
    Movie()
    {
 
    }
-   Movie(String title, String description)
+   Movie(String title, String description, int theMovieDBid)
    {
       this.title = title
       this.description = description
+      this.theMovieDBid = theMovieDBid
    }
 }

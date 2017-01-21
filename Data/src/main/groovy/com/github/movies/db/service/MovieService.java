@@ -13,7 +13,7 @@ import java.util.List;
 
 public interface MovieService
 {
-   void saveMovie(Movie movie);
+   Movie saveMovie(Movie movie);
    List<Movie> findMovie(String title, Pageable pageable);
    Movie findMovie(Long id);
 }

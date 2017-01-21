@@ -15,7 +15,7 @@ import javax.persistence.Id;
  */
 @Entity
 @EqualsAndHashCode
-@ToString
+@ToString(includeNames = true, includeFields = true)
 class Person
 {
    @Id

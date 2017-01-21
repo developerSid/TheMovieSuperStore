@@ -26,9 +26,9 @@ public class MovieServiceImpl implements MovieService
    }
 
    @Override @Transactional
-   public void saveMovie(Movie movie)
+   public Movie saveMovie(Movie movie)
    {
-      movieRepository.save(movie);
+      return movieRepository.save(movie);
    }
 
    @Override @Transactional

@@ -2,5 +2,7 @@ dependencies {
    compile project(':Data')
 
    compile 'org.springframework.boot:spring-boot-starter-jdbc'
+   compile 'org.springframework.boot:spring-boot-starter-aop'
 
+   compile 'info.movito:themoviedbapi:1.4'
 }
