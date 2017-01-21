@@ -1,0 +1,23 @@
+buildscript {
+   repositories {
+      jcenter()
+   }
+   dependencies {
+      classpath("org.springframework.boot:spring-boot-gradle-plugin:1.4.3.RELEASE")
+   }
+}
+
+subprojects {
+   apply plugin: 'java'
+   apply plugin: 'org.springframework.boot'
+
+   repositories {
+      jcenter()
+   }
+
+   dependencies {
+      compile 'javax.validation:validation-api:1.1.0.Final'
+
+      compile 'org.apache.commons:commons-lang3:3.5'
+   }
+}

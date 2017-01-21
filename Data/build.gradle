@@ -1,0 +1,15 @@
+apply plugin: 'groovy'
+
+dependencies {
+   compile 'org.codehaus.groovy:groovy-all:2.4.7'
+
+   compile 'org.springframework.boot:spring-boot-starter-data-jpa'
+   compile 'org.hibernate:hibernate-validator'
+
+   compile 'javax.el:javax.el-api:3.0.0'
+   compile 'org.glassfish:javax.el:3.0.0'
+
+   compile 'com.h2database:h2'
+   compile 'mysql:mysql-connector-java:5.1.40'
+   compile 'org.postgresql:postgresql:9.4.1208'
+}

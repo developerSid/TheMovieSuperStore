@@ -1,0 +1,12 @@
+spring:
+  main:
+    banner-mode: off
+  profiles:
+    active: local
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+    show-sql: true
