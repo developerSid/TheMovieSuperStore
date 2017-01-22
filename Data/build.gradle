@@ -13,4 +13,6 @@ dependencies {
    compile 'com.h2database:h2'
    compile 'mysql:mysql-connector-java:5.1.40'
    compile 'org.postgresql:postgresql:9.4.1208'
+
+   testCompile 'org.spockframework:spock-core:1.0-groovy-2.4'
 }

@@ -1,4 +1,4 @@
-package com.github.movies.db.service.impl;
+package com.github.movies.db.service;
 
 import com.github.movies.db.entity.Person;
 import com.github.movies.db.repository.PersonRepository;
@@ -12,11 +12,11 @@ import org.springframework.stereotype.Service;
  * Provides the JPA based Person Service
  */
 @Service
-public class PersonServiceImpl implements PersonService
+public class JpaPersonService implements PersonService
 {
    private final PersonRepository personRepository;
 
-   public PersonServiceImpl(@Autowired PersonRepository personRepository)
+   public JpaPersonService(@Autowired PersonRepository personRepository)
    {
       this.personRepository = personRepository;
    }

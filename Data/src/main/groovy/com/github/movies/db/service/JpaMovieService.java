@@ -1,4 +1,4 @@
-package com.github.movies.db.service.impl;
+package com.github.movies.db.service;
 
 import com.github.movies.db.entity.Movie;
 import com.github.movies.db.repository.MovieRepository;
@@ -16,11 +16,11 @@ import java.util.List;
  * Standard JPA based Movie Service
  */
 @Service
-public class MovieServiceImpl implements MovieService
+public class JpaMovieService implements MovieService
 {
    private final MovieRepository movieRepository;
 
-   public MovieServiceImpl(@Autowired MovieRepository movieRepository)
+   public JpaMovieService(@Autowired MovieRepository movieRepository)
    {
       this.movieRepository = movieRepository;
    }
