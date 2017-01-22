@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 
 /**
- * Created by developerSid on 1/20/17.around {@link com.github.movies.db.loader.services.MovitoTheMovieDBService} to limit
+ * Created by developerSid on 1/20/17.around {@link com.github.movies.db.loader.services.RestfulTheMovieDBService} to limit
  * how much the MovieDB API is hit
  *
  * Wrapper
@@ -29,7 +29,7 @@ public class MovitoTheMovieDBServiceRateLimiter
       this.rateLimiter = RateLimiter.create(8);
    }
 
-   @Around("execution(public * com.github.movies.db.loader.services.MovitoTheMovieDBService.*(..))")
+   @Around("execution(public * org.springframework.web.client.RestTemplate.*(..))")
    public Object limit(ProceedingJoinPoint joinPoint) throws Throwable
    {
       logger.debug("Loading {} from The Movie DB using {}", Arrays.stream(joinPoint.getArgs()).map(Object::toString).collect(Collectors.joining()), joinPoint.getSignature().getName());

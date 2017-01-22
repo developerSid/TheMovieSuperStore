@@ -1,5 +1,7 @@
 package com.github.movies.db.entity
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import com.fasterxml.jackson.annotation.JsonProperty
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
@@ -20,6 +22,7 @@ import javax.persistence.Table
 @EqualsAndHashCode
 @ToString(includeNames = true, includeFields = true)
 @Table(name = "movie", indexes = @Index(columnList = "title"))
+@JsonIgnoreProperties(ignoreUnknown = true)
 class Movie implements Serializable
 {
    @Id
@@ -29,8 +32,10 @@ class Movie implements Serializable
    String title
 
    @Lob
+   @JsonProperty(value = "overview")
    String description
 
+   @JsonProperty(value = "id")
    int theMovieDBid
 
    Movie()
@@ -42,5 +47,11 @@ class Movie implements Serializable
       this.title = title
       this.description = description
       this.theMovieDBid = theMovieDBid
+   }
+
+   @JsonProperty(value = "id")
+   void setTheMovieDBid(int theMovieDBid)
+   {
+      this.theMovieDBid=theMovieDBid
    }
 }

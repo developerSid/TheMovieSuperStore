@@ -34,7 +34,8 @@ class Application
 
          [330459, 603, 10249, 9942, 154, 272, 137106, 11528, 284052, 1726].each {
             Movie movie = loadMovieEventConsumer.apply(it)
-            movie = loadDirectorsProcessor.apply(movie)
+            println movie
+            //movie = loadDirectorsProcessor.apply(movie)
          }
 
       }

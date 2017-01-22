@@ -3,6 +3,6 @@ dependencies {
 
    compile 'org.springframework.boot:spring-boot-starter-jdbc'
    compile 'org.springframework.boot:spring-boot-starter-aop'
-
-   compile 'info.movito:themoviedbapi:1.4'
+   compile 'org.springframework:spring-web'
+   compile 'com.fasterxml.jackson.core:jackson-databind'
 }

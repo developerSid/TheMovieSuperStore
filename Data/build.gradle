@@ -5,6 +5,7 @@ dependencies {
 
    compile 'org.springframework.boot:spring-boot-starter-data-jpa'
    compile 'org.hibernate:hibernate-validator'
+   compile 'com.fasterxml.jackson.core:jackson-databind'
 
    compile 'javax.el:javax.el-api:3.0.0'
    compile 'org.glassfish:javax.el:3.0.0'
