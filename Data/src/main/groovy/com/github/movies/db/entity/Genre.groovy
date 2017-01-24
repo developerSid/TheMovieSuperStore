@@ -8,44 +8,26 @@ import groovy.transform.ToString
 import javax.persistence.*
 
 /**
- * Created by developerSid on 1/11/17.
+ * Created by developerSid on 1/22/17.
  *
- * Represents a movie
+ * Entity container for the movie genre captured from The Movie DB
  */
 @Entity
 @EqualsAndHashCode
 @ToString(includeNames = true, includeFields = true)
-@Table(name = "movie", indexes = @Index(columnList = "title"))
+@Table(name = "genre", indexes = @Index(columnList = "name"))
 @JsonIgnoreProperties(ignoreUnknown = true)
-class Movie implements Serializable
+class Genre
 {
    @Id
    @GeneratedValue(strategy = GenerationType.AUTO)
    long id
 
-   String title
-
-   @Lob
-   @JsonProperty(value = "overview")
-   String description
+   @Column(unique = true)
+   String name
 
    @JsonProperty(value = "id")
    int theMovieDBid
-
-   @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-   @JoinTable(name = "movie_genre")
-   Set<Genre> genres
-
-   Movie()
-   {
-
-   }
-   Movie(String title, String description, int theMovieDBid)
-   {
-      this.title = title
-      this.description = description
-      this.theMovieDBid = theMovieDBid
-   }
 
    @JsonProperty(value = "id")
    void setTheMovieDBid(int theMovieDBid)

@@ -12,3 +12,5 @@ spring:
     show-sql: true
   aop:
     proxy-target-class: true
+logging:
+  level: debug

@@ -1,12 +1,9 @@
 package com.github.movies.db.entity
 
 import groovy.transform.EqualsAndHashCode
-import groovy.transform.ToString;
+import groovy.transform.ToString
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*
 
 /**
  * Created by developerSid on 1/12/17.
@@ -16,19 +13,20 @@ import javax.persistence.Id;
 @Entity
 @EqualsAndHashCode
 @ToString(includeNames = true, includeFields = true)
+@Table(name = "person")
 class Person
 {
    @Id
    @GeneratedValue(strategy = GenerationType.AUTO)
-   Long id;
+   Long id
 
-   String title;
+   String title
 
-   String firstName;
+   String firstName
 
-   String middleName;
+   String middleName
 
-   String lastName;
+   String lastName
 
    Person()
    {
@@ -36,9 +34,9 @@ class Person
    }
    Person(String title, String firstName, String middleName, String lastName)
    {
-      this.title = title;
-      this.firstName = firstName;
-      this.middleName = middleName;
-      this.lastName = lastName;
+      this.title = title
+      this.firstName = firstName
+      this.middleName = middleName
+      this.lastName = lastName
    }
 }

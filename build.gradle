@@ -20,6 +20,7 @@ subprojects {
       compile 'javax.validation:validation-api:1.1.0.Final'
 
       compile 'org.apache.commons:commons-lang3:3.5'
+      compile 'org.apache.commons:commons-collections4:4.1'
 
       compile 'com.google.guava:guava:21.0'
    }

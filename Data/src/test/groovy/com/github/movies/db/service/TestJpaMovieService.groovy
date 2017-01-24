@@ -15,7 +15,7 @@ class TestJpaMovieService extends Specification
    {
       setup:
          MovieRepository movieRepository = Mock()
-         MovieService movieService = new JpaMovieService(movieRepository)
+         MovieService movieService = new JpaMovieService(movieRepository, genreRepository)
          Movie resultMovie = new Movie('test title', 'test description', 1)
       when:
          Movie result = movieService.findMovie(1)
@@ -29,7 +29,7 @@ class TestJpaMovieService extends Specification
    {
       setup:
          MovieRepository movieRepository = Mock()
-         MovieService movieService = new JpaMovieService(movieRepository)
+         MovieService movieService = new JpaMovieService(movieRepository, genreRepository)
       when:
          Movie result = movieService.findMovie(1)
       then:
@@ -41,7 +41,7 @@ class TestJpaMovieService extends Specification
    {
       setup:
          MovieRepository movieRepository = Mock()
-         MovieService movieService = new JpaMovieService(movieRepository)
+         MovieService movieService = new JpaMovieService(movieRepository, genreRepository)
          Movie saveMovie = new Movie(
             title: 'test title',
             description: 'test description'
@@ -58,7 +58,7 @@ class TestJpaMovieService extends Specification
    {
       setup:
          MovieRepository movieRepository = Mock()
-         MovieService movieService = new JpaMovieService(movieRepository)
+         MovieService movieService = new JpaMovieService(movieRepository, genreRepository)
          Pageable pageable = new PageRequest(0, 10)
       when:
          def results = movieService.findMovie('title', pageable)
