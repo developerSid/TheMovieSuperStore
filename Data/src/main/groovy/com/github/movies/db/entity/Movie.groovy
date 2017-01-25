@@ -21,7 +21,7 @@ class Movie implements Serializable
 {
    @Id
    @GeneratedValue(strategy = GenerationType.AUTO)
-   long id
+   Long id
 
    String title
 

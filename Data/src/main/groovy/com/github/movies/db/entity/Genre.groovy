@@ -21,13 +21,16 @@ class Genre
 {
    @Id
    @GeneratedValue(strategy = GenerationType.AUTO)
-   long id
+   Long id
 
    @Column(unique = true)
    String name
 
    @JsonProperty(value = "id")
    int theMovieDBid
+
+   @ManyToMany
+   List<Movie> movies;
 
    @JsonProperty(value = "id")
    void setTheMovieDBid(int theMovieDBid)

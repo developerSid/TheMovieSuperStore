@@ -13,6 +13,8 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy
 import org.springframework.data.domain.PageRequest
 import org.springframework.transaction.annotation.EnableTransactionManagement
 
+import java.util.stream.IntStream
+
 /**
  * Created by developerSid on 1/11/17.
  *
@@ -32,10 +34,9 @@ class Application
       try
       {
          LoadMovieProcessor loadMovieEventConsumer = ac.getBean(LoadMovieProcessor)
-         LoadDirectorsProcessor loadDirectorsProcessor = ac.getBean(LoadDirectorsProcessor)
          GenreService genreService = ac.getBean(GenreService)
 
-         [330459, 603, 10249, 9942, 154, 272, 137106, 11528, 284052, 1726].each {
+         IntStream.of(330459, 603, 10249, 9942, 154, 272, 137106, 11528, 284052, 1726).each {
             Movie movie = loadMovieEventConsumer.apply(it)
             println movie
             //movie = loadDirectorsProcessor.apply(movie)

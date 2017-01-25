@@ -4,6 +4,7 @@ import com.github.movies.db.entity.Genre;
 import com.github.movies.db.entity.Movie;
 import com.github.movies.db.repository.GenreRepository;
 import com.github.movies.db.repository.MovieRepository;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -36,10 +37,11 @@ public class JpaMovieService implements MovieService
       genres.addAll(movie.getGenres());
 
       Set<Genre> existingGenres = genreRepository.findByNameIn(genres.stream().map(Genre::getName).collect(Collectors.toSet()));
-      genres.removeAll(existingGenres);
-      genreRepository.save(genres);
+      Set<Genre> existingGenresDifference = new TreeSet<>(Comparator.comparing(Genre::getName));
+      existingGenresDifference.addAll(existingGenres);
+      existingGenresDifference.removeAll(genres);
 
-      movie.setGenres(genreRepository.findByNameIn(movie.getGenres().stream().map(Genre::getName).collect(Collectors.toSet())));
+      movie.setGenres(existingGenres);
 
       return movieRepository.save(movie);
    }
