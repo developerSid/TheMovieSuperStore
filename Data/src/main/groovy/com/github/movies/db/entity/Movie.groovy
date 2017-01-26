@@ -3,6 +3,7 @@ package com.github.movies.db.entity
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import groovy.transform.EqualsAndHashCode
+import groovy.transform.Sortable
 import groovy.transform.ToString
 
 import javax.persistence.*
@@ -13,6 +14,7 @@ import javax.persistence.*
  * Represents a movie
  */
 @Entity
+@Sortable(excludes = "genres")
 @EqualsAndHashCode
 @ToString(includeNames = true, includeFields = true)
 @Table(name = "movie", indexes = @Index(columnList = "title"))
@@ -32,14 +34,17 @@ class Movie implements Serializable
    @JsonProperty(value = "id")
    int theMovieDBid
 
-   @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-   @JoinTable(name = "movie_genre")
-   Set<Genre> genres
+   @ManyToMany(cascade = CascadeType.ALL)
+   @JoinTable(name = "movie_genre",
+      joinColumns = @JoinColumn(name = "movie_id", referencedColumnName = "id"),
+      inverseJoinColumns = @JoinColumn(name = "genre_id", referencedColumnName = "id"))
+   List<Genre> genres
 
    Movie()
    {
 
    }
+
    Movie(String title, String description, int theMovieDBid)
    {
       this.title = title

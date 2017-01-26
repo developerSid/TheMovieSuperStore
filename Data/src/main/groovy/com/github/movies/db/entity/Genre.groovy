@@ -3,7 +3,9 @@ package com.github.movies.db.entity
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import groovy.transform.EqualsAndHashCode
+import groovy.transform.Sortable
 import groovy.transform.ToString
+import org.hibernate.annotations.Sort
 
 import javax.persistence.*
 
@@ -13,11 +15,12 @@ import javax.persistence.*
  * Entity container for the movie genre captured from The Movie DB
  */
 @Entity
+@Sortable(excludes = "movies")
 @EqualsAndHashCode
 @ToString(includeNames = true, includeFields = true)
 @Table(name = "genre", indexes = @Index(columnList = "name"))
 @JsonIgnoreProperties(ignoreUnknown = true)
-class Genre
+class Genre implements Serializable
 {
    @Id
    @GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,8 +32,8 @@ class Genre
    @JsonProperty(value = "id")
    int theMovieDBid
 
-   @ManyToMany
-   List<Movie> movies;
+   @ManyToMany(mappedBy = "genres")
+   List<Movie> movies
 
    @JsonProperty(value = "id")
    void setTheMovieDBid(int theMovieDBid)

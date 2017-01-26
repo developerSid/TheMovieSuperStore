@@ -1,7 +1,6 @@
 package com.github.movies.db
 
 import com.github.movies.db.entity.Movie
-import com.github.movies.db.loader.processor.LoadDirectorsProcessor
 import com.github.movies.db.loader.processor.LoadMovieProcessor
 import com.github.movies.db.service.GenreService
 import org.slf4j.Logger
@@ -38,11 +37,11 @@ class Application
 
          IntStream.of(330459, 603, 10249, 9942, 154, 272, 137106, 11528, 284052, 1726).each {
             Movie movie = loadMovieEventConsumer.apply(it)
-            println movie
+            //println movie
             //movie = loadDirectorsProcessor.apply(movie)
          }
 
-         genreService.loadAll(new PageRequest(0, 10)).each {println it}
+         genreService.loadAll(new PageRequest(0, 10)).each {println it.name}
 
       }
       catch(e)

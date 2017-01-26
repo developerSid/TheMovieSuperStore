@@ -2,16 +2,13 @@ package com.github.movies.db.service;
 
 import com.github.movies.db.entity.Genre;
 import com.github.movies.db.entity.Movie;
-import com.github.movies.db.repository.GenreRepository;
 import com.github.movies.db.repository.MovieRepository;
-import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * Created by developerSid on 1/12/17.
@@ -22,26 +19,24 @@ import java.util.stream.Collectors;
 public class JpaMovieService implements MovieService
 {
    private final MovieRepository movieRepository;
-   private final GenreRepository genreRepository;
+   private final GenreService genreService;
 
-   public JpaMovieService(@Autowired MovieRepository movieRepository, GenreRepository genreRepository)
+   @Autowired
+   public JpaMovieService(MovieRepository movieRepository, GenreService genreService)
    {
       this.movieRepository = movieRepository;
-      this.genreRepository = genreRepository;
+      this.genreService = genreService;
    }
 
-   @Override @Transactional
+   @Override
+   @Transactional
    public Movie saveMovie(Movie movie)
    {
-      Set<Genre> genres = new TreeSet<>(Comparator.comparing(Genre::getName)); //need them filtered by name not hash code
-      genres.addAll(movie.getGenres());
+      List<Genre> savedGenres = genreService.save(movie.getGenres());
 
-      Set<Genre> existingGenres = genreRepository.findByNameIn(genres.stream().map(Genre::getName).collect(Collectors.toSet()));
-      Set<Genre> existingGenresDifference = new TreeSet<>(Comparator.comparing(Genre::getName));
-      existingGenresDifference.addAll(existingGenres);
-      existingGenresDifference.removeAll(genres);
-
-      movie.setGenres(existingGenres);
+      /*movie.setGenres(Collections.emptyList());
+      movie = movieRepository.save(movie);*/
+      movie.setGenres(savedGenres);
 
       return movieRepository.save(movie);
    }

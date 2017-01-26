@@ -1,7 +1,9 @@
 package com.github.movies.db.entity
 
 import groovy.transform.EqualsAndHashCode
+import groovy.transform.Sortable
 import groovy.transform.ToString
+import org.apache.commons.lang3.builder.CompareToBuilder
 
 import javax.persistence.*
 
@@ -11,10 +13,11 @@ import javax.persistence.*
  * Models a person can be anyone involved with a movie
  */
 @Entity
+@Sortable
 @EqualsAndHashCode
 @ToString(includeNames = true, includeFields = true)
 @Table(name = "person")
-class Person
+class Person implements Serializable
 {
    @Id
    @GeneratedValue(strategy = GenerationType.AUTO)
@@ -32,6 +35,7 @@ class Person
    {
 
    }
+
    Person(String title, String firstName, String middleName, String lastName)
    {
       this.title = title

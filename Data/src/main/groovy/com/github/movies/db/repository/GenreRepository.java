@@ -4,6 +4,8 @@ import com.github.movies.db.entity.Genre;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -14,5 +16,5 @@ import java.util.Set;
 @Repository
 public interface GenreRepository extends PagingAndSortingRepository<Genre, Long>
 {
-   Set<Genre> findByNameIn(Iterable<String> genres);
+   List<Genre> findByNameInOrderByNameAsc(Iterable<String> genres);
 }
