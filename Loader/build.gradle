@@ -5,4 +5,7 @@ dependencies {
    compile 'org.springframework.boot:spring-boot-starter-aop'
    compile 'org.springframework:spring-web'
    compile 'com.fasterxml.jackson.core:jackson-databind'
+
+   compile 'mysql:mysql-connector-java:5.1.40'
+   compile 'org.postgresql:postgresql:9.4.1208'
 }

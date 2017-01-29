@@ -4,6 +4,7 @@ import com.github.movies.db.entity.Genre;
 import com.github.movies.db.repository.GenreRepository;
 import com.google.common.collect.Streams;
 import org.apache.commons.collections4.CollectionUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -14,12 +15,15 @@ import java.util.stream.Collectors;
 
 /**
  * Created by developerSid on 1/22/17.
+ *
+ * A JPA database based implemenation of {@link GenreService}
  */
 @Service
 public class JpaGenreService implements GenreService
 {
    private final GenreRepository genreRepository;
 
+   @Autowired
    public JpaGenreService(GenreRepository genreRepository)
    {
       this.genreRepository = genreRepository;

@@ -16,6 +16,7 @@ import java.util.*;
  * Standard JPA based Movie Service
  */
 @Service
+@Transactional //since movie contains a LOB, and Postgres stores LOBs across multiple storage subcomponents, we have to make anything that deals with Movie Transactional.
 public class JpaMovieService implements MovieService
 {
    private final MovieRepository movieRepository;
@@ -29,27 +30,24 @@ public class JpaMovieService implements MovieService
    }
 
    @Override
-   @Transactional
-   public Movie saveMovie(Movie movie)
+   public Optional<Movie> saveMovie(Movie movie)
    {
       List<Genre> savedGenres = genreService.save(movie.getGenres());
 
-      /*movie.setGenres(Collections.emptyList());
-      movie = movieRepository.save(movie);*/
       movie.setGenres(savedGenres);
 
-      return movieRepository.save(movie);
+      return Optional.ofNullable(movieRepository.save(movie));
    }
 
-   @Override @Transactional
+   @Override
    public List<Movie> findMovie(String title, Pageable pageable)
    {
       return movieRepository.findByTitleContainingIgnoreCase(title, pageable);
    }
 
-   @Override @Transactional
-   public Movie findMovie(Long id)
+   @Override
+   public Optional<Movie> findMovie(Long id)
    {
-      return movieRepository.findOne(id);
+      return Optional.ofNullable(movieRepository.findOne(id));
    }
 }

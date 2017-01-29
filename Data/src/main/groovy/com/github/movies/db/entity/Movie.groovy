@@ -5,8 +5,12 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.Sortable
 import groovy.transform.ToString
+import org.springframework.data.annotation.CreatedDate
+import org.springframework.data.annotation.LastModifiedDate
 
 import javax.persistence.*
+import javax.validation.constraints.Size
+import java.time.LocalDateTime
 
 /**
  * Created by developerSid on 1/11/17.
@@ -25,6 +29,13 @@ class Movie implements Serializable
    @GeneratedValue(strategy = GenerationType.AUTO)
    Long id
 
+   @CreatedDate
+   LocalDateTime created
+
+   @LastModifiedDate
+   LocalDateTime updated
+
+   @Size(min = 2, max = 150) //TODO build up validation configuration
    String title
 
    @Lob
@@ -56,5 +67,16 @@ class Movie implements Serializable
    void setTheMovieDBid(int theMovieDBid)
    {
       this.theMovieDBid=theMovieDBid
+   }
+
+   @PrePersist
+   private void onCreate() {
+      created = LocalDateTime.now()
+      updated = created
+   }
+
+   @PreUpdate
+   private void onUpdate() {
+      updated = LocalDateTime.now()
    }
 }

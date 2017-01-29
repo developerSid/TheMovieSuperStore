@@ -3,7 +3,6 @@ package com.github.movies.db.entity
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.Sortable
 import groovy.transform.ToString
-import org.apache.commons.lang3.builder.CompareToBuilder
 
 import javax.persistence.*
 

@@ -4,6 +4,7 @@ import com.github.movies.db.entity.Movie;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by developerSid on 1/12/17.
@@ -13,7 +14,7 @@ import java.util.List;
 
 public interface MovieService
 {
-   Movie saveMovie(Movie movie);
+   Optional<Movie> saveMovie(Movie movie);
    List<Movie> findMovie(String title, Pageable pageable);
-   Movie findMovie(Long id);
+   Optional<Movie> findMovie(Long id);
 }

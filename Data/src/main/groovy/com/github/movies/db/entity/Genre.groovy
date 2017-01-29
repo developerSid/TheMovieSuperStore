@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.Sortable
 import groovy.transform.ToString
-import org.hibernate.annotations.Sort
 
 import javax.persistence.*
 
