@@ -29,14 +29,14 @@ class Genre extends Storable
    String name
 
    @JsonProperty(value = "id")
-   int theMovieDBid
+   Integer theMovieDBid
 
    @ManyToMany(mappedBy = "genres")
    List<Movie> movies
 
    @JsonProperty(value = "id")
-   void setTheMovieDBid(int theMovieDBid)
+   void setTheMovieDBid(Integer theMovieDBid)
    {
-      this.theMovieDBid=theMovieDBid
+      this.theMovieDBid = theMovieDBid
    }
 }

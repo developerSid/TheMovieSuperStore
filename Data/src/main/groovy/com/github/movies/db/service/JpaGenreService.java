@@ -53,7 +53,10 @@ public class JpaGenreService implements GenreService
 
       if(!toSave.isEmpty())
       {
-         return Streams.concat(Streams.stream(genreRepository.save(toSave)), foundGenres.stream()).collect(Collectors.toList());
+         return Streams.concat(
+            Streams.stream(genreRepository.save(toSave)),
+            foundGenres.stream()
+         ).collect(Collectors.toList());
       }
       else
       {
