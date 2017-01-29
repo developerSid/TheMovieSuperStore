@@ -4,7 +4,8 @@ import groovy.transform.EqualsAndHashCode
 import groovy.transform.Sortable
 import groovy.transform.ToString
 
-import javax.persistence.*
+import javax.persistence.Entity
+import javax.persistence.Table
 
 /**
  * Created by developerSid on 1/12/17.
@@ -16,12 +17,8 @@ import javax.persistence.*
 @EqualsAndHashCode
 @ToString(includeNames = true, includeFields = true)
 @Table(name = "person")
-class Person implements Serializable
+class Person extends Storable
 {
-   @Id
-   @GeneratedValue(strategy = GenerationType.AUTO)
-   Long id
-
    String title
 
    String firstName

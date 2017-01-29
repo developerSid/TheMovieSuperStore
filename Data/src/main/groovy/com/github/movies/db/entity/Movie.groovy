@@ -5,10 +5,15 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.Sortable
 import groovy.transform.ToString
-import org.springframework.data.annotation.CreatedDate
-import org.springframework.data.annotation.LastModifiedDate
 
-import javax.persistence.*
+import javax.persistence.CascadeType
+import javax.persistence.Entity
+import javax.persistence.Index
+import javax.persistence.JoinColumn
+import javax.persistence.JoinTable
+import javax.persistence.Lob
+import javax.persistence.ManyToMany
+import javax.persistence.Table
 import javax.validation.constraints.Size
 import java.time.LocalDateTime
 
@@ -23,18 +28,8 @@ import java.time.LocalDateTime
 @ToString(includeNames = true, includeFields = true)
 @Table(name = "movie", indexes = @Index(columnList = "title"))
 @JsonIgnoreProperties(ignoreUnknown = true)
-class Movie implements Serializable
+class Movie extends Storable
 {
-   @Id
-   @GeneratedValue(strategy = GenerationType.AUTO)
-   Long id
-
-   @CreatedDate
-   LocalDateTime created
-
-   @LastModifiedDate
-   LocalDateTime updated
-
    @Size(min = 2, max = 150) //TODO build up validation configuration
    String title
 
@@ -67,16 +62,5 @@ class Movie implements Serializable
    void setTheMovieDBid(int theMovieDBid)
    {
       this.theMovieDBid=theMovieDBid
-   }
-
-   @PrePersist
-   private void onCreate() {
-      created = LocalDateTime.now()
-      updated = created
-   }
-
-   @PreUpdate
-   private void onUpdate() {
-      updated = LocalDateTime.now()
    }
 }

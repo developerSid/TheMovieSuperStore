@@ -15,16 +15,17 @@ import java.util.stream.Collectors;
  * Created by developerSid on 1/20/17.around {@link com.github.movies.db.loader.services.RestfulTheMovieDBService} to limit
  * how much the MovieDB API is hit
  *
- * Wrapper
+ * Aspect wrapper around the {@link org.springframework.web.client.RestTemplate} to reduce the chances of hitting a free
+ * API too hard
  */
 @Aspect
 @Component
-public class MovitoTheMovieDBServiceRateLimiter
+public class TheMovieDBServiceRateLimiterAspect
 {
-   private static final Logger logger = LoggerFactory.getLogger(MovitoTheMovieDBServiceRateLimiter.class);
+   private static final Logger logger = LoggerFactory.getLogger(TheMovieDBServiceRateLimiterAspect.class);
    private RateLimiter rateLimiter;
 
-   public MovitoTheMovieDBServiceRateLimiter()
+   public TheMovieDBServiceRateLimiterAspect()
    {
       this.rateLimiter = RateLimiter.create(8);
    }

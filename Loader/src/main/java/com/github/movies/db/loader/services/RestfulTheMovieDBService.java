@@ -9,6 +9,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by developerSid on 1/20/17.
@@ -29,9 +30,16 @@ public class RestfulTheMovieDBService implements TheMovieDBService
    }
 
    @Override
-   public Movie loadMovie(int id)
+   public Optional<Movie> loadMovie(int id)
    {
-      return restTemplate.getForObject("https://api.themoviedb.org/3/movie/{movie_id}?api_key={api_key}&language=en-US", Movie.class, id, apiKey);
+      return Optional.ofNullable(
+         restTemplate.getForObject(
+            "https://api.themoviedb.org/3/movie/{movie_id}?api_key={api_key}&language=en-US",
+            Movie.class,
+            id,
+            apiKey
+         )
+      );
    }
 
    @Override

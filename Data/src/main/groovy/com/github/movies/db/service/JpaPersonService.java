@@ -2,7 +2,6 @@ package com.github.movies.db.service;
 
 import com.github.movies.db.entity.Person;
 import com.github.movies.db.repository.PersonRepository;
-import com.github.movies.db.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

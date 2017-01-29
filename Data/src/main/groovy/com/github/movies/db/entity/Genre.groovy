@@ -6,7 +6,11 @@ import groovy.transform.EqualsAndHashCode
 import groovy.transform.Sortable
 import groovy.transform.ToString
 
-import javax.persistence.*
+import javax.persistence.Column
+import javax.persistence.Entity
+import javax.persistence.Index
+import javax.persistence.ManyToMany
+import javax.persistence.Table
 
 /**
  * Created by developerSid on 1/22/17.
@@ -19,12 +23,8 @@ import javax.persistence.*
 @ToString(includeNames = true, includeFields = true)
 @Table(name = "genre", indexes = @Index(columnList = "name"))
 @JsonIgnoreProperties(ignoreUnknown = true)
-class Genre implements Serializable
+class Genre extends Storable
 {
-   @Id
-   @GeneratedValue(strategy = GenerationType.AUTO)
-   Long id
-
    @Column(unique = true)
    String name
 

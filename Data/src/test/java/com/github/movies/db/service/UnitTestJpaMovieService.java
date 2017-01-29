@@ -3,19 +3,18 @@ package com.github.movies.db.service;
 import com.github.movies.db.entity.Genre;
 import com.github.movies.db.entity.Movie;
 import com.github.movies.db.repository.MovieRepository;
-import org.assertj.core.api.Assertions;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.Mockito;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import org.assertj.core.api.Assertions;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.InOrder;
+import org.mockito.Mockito;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 /**
  * Created by developerSid on 1/26/17.
@@ -64,7 +63,10 @@ public class UnitTestJpaMovieService
 
       Optional<Movie> result = movieService.findMovie(1L);
 
-      Assert.assertFalse(result.isPresent());
+      Assertions.assertThat(result)
+         .isNotPresent()
+      ;
+
       Mockito.verify(movieRepository).findOne(1L);
    }
 
@@ -105,6 +107,11 @@ public class UnitTestJpaMovieService
       ;
 
       Mockito.verify(genreService).save(genres);
+
+      InOrder inOrder = Mockito.inOrder(genreService, movieRepository);
+      inOrder.verify(genreService, Mockito.calls(1)).save(genres);
+      inOrder.verify(movieRepository, Mockito.calls(1)).save(movie);
+      inOrder.verifyNoMoreInteractions();
    }
 
    @Test
@@ -130,6 +137,10 @@ public class UnitTestJpaMovieService
          .containsOnly(saved)
       ;
 
-      Mockito.verify(movieRepository).findByTitleContainingIgnoreCase("Movie Title", pageable);
+      InOrder inOrder = Mockito.inOrder(genreService, movieRepository);
+
+      inOrder.verify(genreService, Mockito.never()).save(genres);
+      inOrder.verify(movieRepository, Mockito.calls(1)).findByTitleContainingIgnoreCase("Movie Title", pageable);
+      inOrder.verifyNoMoreInteractions();
    }
 }

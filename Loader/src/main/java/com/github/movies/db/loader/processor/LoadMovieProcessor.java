@@ -6,6 +6,7 @@ import com.github.movies.db.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
 import java.util.function.Function;
 
 /**
@@ -14,7 +15,7 @@ import java.util.function.Function;
  * Handles loading movies based on a request to load the movie
  */
 @Component
-public class LoadMovieProcessor implements Function<Integer, Movie>
+public class LoadMovieProcessor implements Function<Integer, Optional<Movie>>
 {
    private final TheMovieDBService theMovieDBService;
    private final MovieService movieService;
@@ -27,10 +28,10 @@ public class LoadMovieProcessor implements Function<Integer, Movie>
    }
 
    @Override
-   public Movie apply(Integer movieId)
+   public Optional<Movie> apply(Integer movieId)
    {
-      Movie movie = theMovieDBService.loadMovie(movieId);
-
-      return movieService.saveMovie(movie);
+      return theMovieDBService.loadMovie(movieId)
+         .flatMap(movieService::saveMovie)
+      ;
    }
 }

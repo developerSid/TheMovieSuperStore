@@ -3,12 +3,12 @@ package com.github.movies.db.service;
 import com.github.movies.db.entity.Genre;
 import com.github.movies.db.entity.Movie;
 import com.github.movies.db.repository.MovieRepository;
+import java.util.List;
+import java.util.Optional;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
-import java.util.*;
 
 /**
  * Created by developerSid on 1/12/17.

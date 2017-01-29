@@ -4,6 +4,7 @@ import com.github.movies.db.entity.Movie;
 import com.github.movies.db.entity.Person;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by developerSid on 1/20/17.
@@ -12,6 +13,6 @@ import java.util.List;
  */
 public interface TheMovieDBService
 {
-   Movie loadMovie(int id);
+   Optional<Movie> loadMovie(int id);
    List<Person> loadDirectors(Movie movie);
 }

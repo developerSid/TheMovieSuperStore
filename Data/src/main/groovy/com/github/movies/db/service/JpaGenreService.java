@@ -3,15 +3,17 @@ package com.github.movies.db.service;
 import com.github.movies.db.entity.Genre;
 import com.github.movies.db.repository.GenreRepository;
 import com.google.common.collect.Streams;
-import org.apache.commons.collections4.CollectionUtils;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
-import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * Created by developerSid on 1/22/17.
@@ -33,8 +35,8 @@ public class JpaGenreService implements GenreService
    @Transactional
    public List<Genre> save(Collection<Genre> genres)
    {
-      List<Genre> foundGenres = genreRepository.findByNameInOrderByNameAsc(genres.stream().map(Genre::getName).collect(Collectors.toSet()));
-      Collection<Genre> toSave;
+      List<Genre> foundGenres = genreRepository.findByNameInOrderByNameAsc(genres.stream().map(Genre::getName).collect(Collectors.toList()));
+      Collection<Genre> toSave = genres;
 
       if(!foundGenres.isEmpty())
       {
@@ -47,10 +49,6 @@ public class JpaGenreService implements GenreService
                toSave.add(genre);
             }
          }
-      }
-      else
-      {
-         toSave = genres;
       }
 
       if(!toSave.isEmpty())
