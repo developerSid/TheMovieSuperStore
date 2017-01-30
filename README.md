@@ -18,3 +18,5 @@ You can setup a developer's account and run the loader application using the API
 generate for you.
 
 To Run:
+./gradlew clean build
+java -jar Loader/build/libs/Loader.jar --spring.profiles.active=embedded --tmdb.api.key=${yourApiKeyGoesHere}

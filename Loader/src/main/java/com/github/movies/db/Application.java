@@ -26,7 +26,7 @@ public class Application
    static {
       System.setProperty("org.jboss.logging.provider", "slf4j");
    }
-   
+
    public static void main(String[] args)
    {
       SLF4JBridgeHandler.install();
