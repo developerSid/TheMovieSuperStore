@@ -1,5 +1,6 @@
 #The Movie Super Store
-An demo project for Utilizing different parts of the Spring Framework via the opinated Spring Boot
+An demo project for Utilizing different parts of the Spring Framework via the opinated 
+Spring Boot project.
 
 ## Getting started
 The project uses Gradle for it's builds to simplify dependency (library) management 
@@ -15,3 +16,5 @@ expressed in this project these data entities are reused in multiple ways throug
 This is the primary application as it stands right now.  It pulls in data from https://developers.themoviedb.org/3/getting-started
 You can setup a developer's account and run the loader application using the API key they
 generate for you.
+
+To Run:

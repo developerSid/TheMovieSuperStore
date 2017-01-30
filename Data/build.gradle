@@ -3,12 +3,12 @@ apply plugin: 'groovy'
 dependencies {
    compile 'org.codehaus.groovy:groovy-all:2.4.7'
 
-   compile 'org.springframework.boot:spring-boot-starter-data-jpa'
-   compile 'org.hibernate:hibernate-validator'
-   compile 'com.fasterxml.jackson.core:jackson-databind'
+   compile "org.springframework.boot:spring-boot-starter-data-jpa:${springBootVer}"
+   compile 'org.hibernate:hibernate-validator:5.2.4.Final'
+   compile 'com.fasterxml.jackson.core:jackson-databind:2.8.5'
 
    compile 'javax.el:javax.el-api:3.0.0'
    compile 'org.glassfish:javax.el:3.0.0'
 
-   testCompile 'com.h2database:h2'
+   testCompile 'com.h2database:h2:1.4.193'
 }

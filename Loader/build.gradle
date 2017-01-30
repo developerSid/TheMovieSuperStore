@@ -1,3 +1,7 @@
+apply plugin: 'org.springframework.boot'
+
+mainClassName = 'com.github.movies.db.loader.Application'
+
 dependencies {
    compile project(':Data')
 
