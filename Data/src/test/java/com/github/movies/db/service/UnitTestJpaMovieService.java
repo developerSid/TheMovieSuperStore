@@ -45,12 +45,11 @@ public class UnitTestJpaMovieService
 
       Mockito.when(movieRepository.findOne(1L)).thenReturn(movie);
 
-      Movie result = movieService.findMovie(1L).get();
+      Optional<Movie> result = movieService.findMovie(1L);
 
       Assertions.assertThat(result)
-         .isNotNull()
-         .isEqualToComparingFieldByField(movie)
-         .isSameAs(movie)
+         .isPresent()
+         .containsSame(movie)
       ;
 
       Mockito.verify(movieRepository).findOne(1L);
@@ -77,7 +76,6 @@ public class UnitTestJpaMovieService
       Genre genreTwo = new Genre();
       List<Genre> genres = Arrays.asList(genreOne, genreTwo);
       Movie movie = new Movie();
-      movie.setId(1L);
       movie.setTitle("Movie Title");
       movie.setDescription("Movie");
       movie.setGenres(genres);

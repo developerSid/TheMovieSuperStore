@@ -36,7 +36,9 @@ public class JpaMovieService implements MovieService
 
       movie.setGenres(savedGenres);
 
-      return Optional.ofNullable(movieRepository.save(movie));
+      Movie result = movieRepository.save(movie);
+
+      return Optional.ofNullable(result);
    }
 
    @Override
