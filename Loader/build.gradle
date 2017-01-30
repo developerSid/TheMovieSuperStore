@@ -8,5 +8,6 @@ dependencies {
 
    compile 'mysql:mysql-connector-java:5.1.40'
    compile 'org.postgresql:postgresql:9.4.1208'
+   compile 'com.microsoft.sqlserver:mssql-jdbc:6.1.0.jre8'
    compile 'com.h2database:h2'
 }

@@ -1,0 +1,19 @@
+spring:
+  main:
+    banner-mode: off
+  profiles:
+    active: develop
+  datasource:
+    url: jdbc:sqlserver://localhost:1433
+    username: sa
+    password: yourStrong(!)Password
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.SQLServer2012Dialect
+    show-sql: true
+  aop:
+    proxy-target-class: true

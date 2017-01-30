@@ -2,6 +2,8 @@ package com.github.movies.db.service;
 
 import com.github.movies.db.entity.Person;
 
+import java.util.Optional;
+
 /**
  * Created by developerSid on 1/12/17.
  *
@@ -9,5 +11,5 @@ import com.github.movies.db.entity.Person;
  */
 public interface PersonService
 {
-   void save(Person person);
+   Optional<Person> save(Person person);
 }

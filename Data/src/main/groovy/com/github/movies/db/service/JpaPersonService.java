@@ -5,6 +5,8 @@ import com.github.movies.db.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 /**
  * Created by developerSid on 1/12/17.
  *
@@ -21,8 +23,8 @@ public class JpaPersonService implements PersonService
    }
 
    @Override
-   public void save(Person person)
+   public Optional<Person> save(Person person)
    {
-      personRepository.save(person);
+      return Optional.ofNullable(personRepository.save(person));
    }
 }
