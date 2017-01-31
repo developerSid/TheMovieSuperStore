@@ -1,0 +1,18 @@
+spring:
+  main:
+    banner-mode: off
+  profiles:
+    active: local
+  datasource:
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+    show-sql: true
+  aop:
+    proxy-target-class: true
+logging:
+  level: debug
