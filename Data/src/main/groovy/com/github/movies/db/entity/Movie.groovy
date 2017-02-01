@@ -2,11 +2,14 @@ package com.github.movies.db.entity
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize
+import com.github.movies.db.json.deserializer.MovieReleaseDateDeserializer
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.Sortable
 import groovy.transform.ToString
 
 import javax.persistence.CascadeType
+import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.Index
 import javax.persistence.JoinColumn
@@ -15,6 +18,7 @@ import javax.persistence.Lob
 import javax.persistence.ManyToMany
 import javax.persistence.Table
 import javax.validation.constraints.Size
+import java.time.LocalDate
 import java.time.LocalDateTime
 
 /**
@@ -36,6 +40,11 @@ class Movie extends Storable
    @Lob
    @JsonProperty(value = "overview")
    String description
+
+   @Column
+   @JsonDeserialize(using = MovieReleaseDateDeserializer.class)
+   @JsonProperty(value = "release_date")
+   LocalDate releaseDate
 
    @JsonProperty(value = "id")
    int theMovieDBid

@@ -7,8 +7,10 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
@@ -19,6 +21,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @SpringBootApplication
 @EnableTransactionManagement
 @EnableAspectJAutoProxy
+@EntityScan(
+   basePackageClasses = Jsr310JpaConverters.class
+)
 public class Application
 {
    private static final Logger logger = LoggerFactory.getLogger(Application.class);

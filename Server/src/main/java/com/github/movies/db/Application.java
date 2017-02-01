@@ -4,7 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * Created by gary.myers on 1/30/17.
+ * Created by developerSid on 1/30/17.
  *
  * Entry point for the Spring Data REST application
  */
