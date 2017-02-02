@@ -21,9 +21,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @SpringBootApplication
 @EnableTransactionManagement
 @EnableAspectJAutoProxy
-@EntityScan(
-   basePackageClasses = Jsr310JpaConverters.class
-)
 public class Application
 {
    private static final Logger logger = LoggerFactory.getLogger(Application.class);

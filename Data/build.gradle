@@ -1,5 +1,13 @@
 apply plugin: 'groovy'
 
+
+sourceSets {
+   test {
+      java {
+         srcDirs += 'src/ft/java'
+      }
+   }
+}
 dependencies {
    compile 'org.codehaus.groovy:groovy-all:2.4.7'
 
