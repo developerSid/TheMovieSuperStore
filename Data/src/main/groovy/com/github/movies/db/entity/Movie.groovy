@@ -19,7 +19,6 @@ import javax.persistence.ManyToMany
 import javax.persistence.Table
 import javax.validation.constraints.Size
 import java.time.LocalDate
-import java.time.LocalDateTime
 
 /**
  * Created by developerSid on 1/11/17.
@@ -60,11 +59,12 @@ class Movie extends Storable
 
    }
 
-   Movie(String title, String description, int theMovieDBid)
+   Movie(String title, String description, int theMovieDBid, LocalDate releaseDate)
    {
       this.title = title
       this.description = description
       this.theMovieDBid = theMovieDBid
+      this.releaseDate = releaseDate
    }
 
    @JsonProperty(value = "id")
