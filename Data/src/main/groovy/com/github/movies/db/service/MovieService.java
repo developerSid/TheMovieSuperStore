@@ -13,7 +13,7 @@ import org.springframework.data.domain.Pageable;
 
 public interface MovieService
 {
-   Optional<Movie> saveMovie(Movie movie);
+   Movie saveMovie(Movie movie);
    List<Movie> findMovie(String title, Pageable pageable);
    Optional<Movie> findMovie(Long id);
 }

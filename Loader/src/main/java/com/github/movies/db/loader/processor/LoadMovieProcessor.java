@@ -30,8 +30,6 @@ public class LoadMovieProcessor implements Function<Integer, Optional<Movie>>
    @Override
    public Optional<Movie> apply(Integer movieId)
    {
-      return theMovieDBService.loadMovie(movieId)
-         .flatMap(movieService::saveMovie)
-      ;
+      return theMovieDBService.loadMovie(movieId).map(movieService::saveMovie);
    }
 }

@@ -28,11 +28,22 @@ class Genre extends Storable
    @Column(unique = true)
    String name
 
+   @Column(name = "the_movie_db_id")
    @JsonProperty(value = "id")
    Integer theMovieDBid
 
    @ManyToMany(mappedBy = "genres")
    List<Movie> movies
+
+   Genre()
+   {
+
+   }
+   Genre(String name, int theMovieDBid)
+   {
+      this.name = name
+      this.theMovieDBid = theMovieDBid
+   }
 
    @JsonProperty(value = "id")
    void setTheMovieDBid(Integer theMovieDBid)

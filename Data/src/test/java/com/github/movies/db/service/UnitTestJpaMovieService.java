@@ -90,19 +90,10 @@ public class UnitTestJpaMovieService
 
       Mockito.when(movieRepository.save(movie)).thenReturn(saved);
 
-      Optional<Movie> result = movieService.saveMovie(movie);
+      Movie result = movieService.saveMovie(movie);
 
-      Assertions.assertThat(result)
-         .isPresent()
-         .containsSame(saved)
-         .hasValueSatisfying(s -> {
-            Assertions.assertThat(s.getId()).isEqualTo(1L);
-            Assertions.assertThat(s.getTitle()).isEqualTo("Movie Title");
-            Assertions.assertThat(s.getDescription()).isEqualTo("Movie");
-            Assertions.assertThat(s.getCreated()).isEqualTo(LocalDateTime.of(1955, 11, 5, 7, 22));
-            Assertions.assertThat(s.getUpdated()).isEqualTo(LocalDateTime.of(1985, 10, 26, 7, 22));
-         })
-      ;
+      Assertions.assertThat(result).isEqualTo(saved);
+      Assertions.assertThat(result.getId()).isEqualTo(1L);
 
       Mockito.verify(genreService).save(genres);
 

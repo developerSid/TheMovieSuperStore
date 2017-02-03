@@ -45,6 +45,7 @@ class Movie extends Storable
    @JsonProperty(value = "release_date")
    LocalDate releaseDate
 
+   @Column(name = "the_movie_db_id")
    @JsonProperty(value = "id")
    int theMovieDBid
 
@@ -61,7 +62,7 @@ class Movie extends Storable
 
    Movie(String title, String description, int theMovieDBid, LocalDate releaseDate)
    {
-      this(title, description, theMovieDBid, releaseDate, [])
+      this(title, description, releaseDate, theMovieDBid, [])
    }
 
    Movie(String title, String description, LocalDate releaseDate, int theMovieDBid, List<Genre> genres)

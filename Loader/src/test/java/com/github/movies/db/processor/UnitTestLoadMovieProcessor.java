@@ -36,7 +36,7 @@ public class UnitTestLoadMovieProcessor
       saved.setId(1L);
 
       Mockito.when(theMovieDBService.loadMovie(1)).thenReturn(Optional.of(movie));
-      Mockito.when(movieService.saveMovie(movie)).thenReturn(Optional.of(saved));
+      Mockito.when(movieService.saveMovie(movie)).thenReturn(saved);
 
       Optional<Movie> result = loadMovieProcessor.apply(1);
 

@@ -30,13 +30,13 @@ public class JpaMovieService implements MovieService
    }
 
    @Override
-   public Optional<Movie> saveMovie(Movie movie)
+   public Movie saveMovie(Movie movie)
    {
       List<Genre> savedGenres = genreService.save(movie.getGenres());
 
       movie.setGenres(savedGenres);
 
-      return Optional.ofNullable(movieRepository.save(movie));
+      return movieRepository.save(movie);
    }
 
    @Override

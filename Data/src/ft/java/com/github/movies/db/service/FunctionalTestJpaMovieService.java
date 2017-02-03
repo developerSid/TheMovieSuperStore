@@ -1,9 +1,18 @@
 package com.github.movies.db.service;
 
 import com.github.movies.TestConfiguration;
+import com.github.movies.db.entity.Genre;
 import com.github.movies.db.entity.Movie;
 import com.github.movies.db.repository.MovieRepository;
+import com.google.common.collect.Streams;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,6 +21,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -32,6 +43,7 @@ public class FunctionalTestJpaMovieService
 {
    @Autowired private TestEntityManager entityManager;
    @Autowired private JpaMovieService jpaMovieService;
+   @Autowired private JdbcTemplate jdbc;
 
    @Test
    public void testFindById()
@@ -53,15 +65,15 @@ public class FunctionalTestJpaMovieService
    @Test
    public void testSave()
    {
-      Movie toSave = new Movie("test title save", "test descriptionsave", 2, LocalDate.of(2000, Month.APRIL, 12));
+      Movie toSave = new Movie("test title save", "test description save", 2, LocalDate.of(2000, Month.APRIL, 12));
 
-      Optional<Movie> saved = jpaMovieService.saveMovie(toSave);
+      Movie saved = jpaMovieService.saveMovie(toSave);
 
-      Assertions.assertThat(saved).isPresent();
+      Assertions.assertThat(saved).isNotNull();
 
-      Movie entityManagerSaved = entityManager.find(Movie.class, saved.get().getId());
+      Movie entityManagerSaved = entityManager.find(Movie.class, saved.getId());
 
-      Assertions.assertThat(saved).hasValue(entityManagerSaved);
+      Assertions.assertThat(saved).isEqualTo(entityManagerSaved);
    }
 
    @Test
@@ -70,7 +82,7 @@ public class FunctionalTestJpaMovieService
       Movie movie1 = entityManager.persist(
          new Movie(
             "test title",
-            "test descritpion",
+            "test description",
             1,
             LocalDate.of(1999, Month.FEBRUARY, 22)
          )
@@ -78,7 +90,7 @@ public class FunctionalTestJpaMovieService
       Movie movie2 = entityManager.persist(
          new Movie(
             "test title 2",
-            "test descritpion 2",
+            "test description 2",
             1,
             LocalDate.of(2000, Month.APRIL, 12)
          )
@@ -86,7 +98,7 @@ public class FunctionalTestJpaMovieService
       entityManager.persist(
          new Movie(
             "movie 3",
-            "movie 3 descritpion 3",
+            "movie 3 description 3",
             1,
             LocalDate.of(2001, Month.AUGUST, 12)
          )
@@ -104,71 +116,78 @@ public class FunctionalTestJpaMovieService
    @Test
    public void testSavingGenres()
    {
-      Assertions.fail("Finish");
-      /*
-      @Test testMovieAddingGenres()
-   {
-      Movie movie1 = jpaMovieService.saveMovie(
+      Movie movieOne = jpaMovieService.saveMovie(
          new Movie(
-            title: "test title",
-            description: "test descritpion",
-            theMovieDBid: 1,
-            releaseDate: LocalDate.of(1999, Month.FEBRUARY, 22),
-            genres: [
+            "test title",
+            "test description",
+            LocalDate.of(1999, Month.FEBRUARY, 22),
+            1,
+            Arrays.asList(
                new Genre(
-                  name: "Test Genre 1",
-                  theMovieDBid: 21
+                  "Test Genre 1",
+                  21
                ),
                new Genre(
-                  name: "Test Genre 2",
-                  theMovieDBid: 22
+                  "Test Genre 2",
+                  22
                )
-            ]
+            )
          )
-      )
-      Movie movie2 = jpaMovieService.saveMovie(
+      );
+      Movie movieTwo = jpaMovieService.saveMovie(
          new Movie(
-            title: "test title 2",
-            description:  "test descritpion 2",
-            theMovieDBid:  1,
-            releaseDate:  LocalDate.of(2000, Month.APRIL, 12),
-            genres: [
+            "test title 2",
+            "test description2 ",
+            LocalDate.of(2000, Month.APRIL, 12),
+            2,
+            Arrays.asList(
                new Genre(
-                  name: "Test Genre 1",
-                  theMovieDBid: 21
+                  "Test Genre 1",
+                  21
                ),
                new Genre(
-                  name: "Test Genre 3",
-                  theMovieDBid: 23
+                  "Test Genre 3",
+                  23
                )
-            ]
+            )
          )
-      )
-      jpaMovieService.saveMovie(
+      );
+      Movie movieThree = jpaMovieService.saveMovie(
          new Movie(
-            title:  "movie 3",
-            description:  "movie 3 descritpion 3",
-            theMovieDBid:  1,
-            releaseDate: LocalDate.of(2001, Month.AUGUST, 12),
-            genres: [
+            "movie 3",
+            "movie 3 description 3",
+            LocalDate.of(2001, Month.AUGUST, 12),
+            3,
+            Collections.singletonList(
                new Genre(
-                  name: "Test Genre 1",
-                  theMovieDBid: 21
+                  "Test Genre 1",
+                  21
                )
-            ]
+            )
          )
-      )
+      );
 
-      def results = jdbc.query("SELECT id, name") { rs, row ->
-         return [
-            id: rs.getInt("id"),
-            name: rs.getString("name")
-         ]
-      }
+      List<Genre> genres = Stream.of(movieOne, movieTwo, movieThree)
+         .flatMap(m -> m.getGenres().stream())
+         .distinct()
+         .collect(Collectors.toList())
+      ;
+
+      List<Genre> results = jdbc.query("SELECT id, name, the_movie_db_id FROM Genre", (rs, rowNum) ->
+      {
+         Genre toReturn = new Genre();
+
+         toReturn.setId(rs.getLong("id"));
+         toReturn.setName(rs.getString("name"));
+         toReturn.setTheMovieDBid(rs.getInt("the_movie_db_id"));
+
+         return toReturn;
+      });
+
 
       Assertions.assertThat(results)
          .hasSize(3)
-   }
-       */
+         .containsExactlyElementsOf(genres)
+      ;
    }
 }

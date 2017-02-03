@@ -1,6 +1,9 @@
 package com.github.movies.db;
 
+import com.github.movies.db.entity.Movie;
 import com.github.movies.db.loader.processor.LoadMovieProcessor;
+import com.github.movies.db.service.JpaMovieService;
+import java.util.Optional;
 import java.util.stream.IntStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,24 +31,27 @@ public class Application
    public static void main(String[] args)
    {
       SLF4JBridgeHandler.install();
-      ConfigurableApplicationContext ac = SpringApplication.run(Application.class, args);
 
-      try
+      try(ConfigurableApplicationContext ac = SpringApplication.run(Application.class, args))
       {
          final LoadMovieProcessor loadMovieEventConsumer = ac.getBean(LoadMovieProcessor.class);
+         final JpaMovieService jpaMovieService = ac.getBean(JpaMovieService.class);
 
          logger.info("Loading movies");
-         IntStream.of(330459, 603, 10249, 9942, 154, 272, 137106, 11528, 284052, 1726)
-            .forEach(id -> loadMovieEventConsumer.apply(id).ifPresent(movie -> logger.info(movie.getTitle())));
+         IntStream.of(330459, 603, 10249, 9942, 154, 272, 137106, 11528, 284052, 1726).forEach(loadMovieEventConsumer::apply);
          logger.info("Loaded all movies");
+
+         Optional<Movie> one = jpaMovieService.findMovie(1L);
+
+         one.ifPresent(movie -> {
+            movie.getGenres().forEach(genre -> {
+               System.out.printf("name: %s", genre.getName());
+            });
+         });
       }
       catch(Exception e)
       {
          logger.error("Error occurred during operation", e);
-      }
-      finally
-      {
-         ac.close();
       }
 
    }
