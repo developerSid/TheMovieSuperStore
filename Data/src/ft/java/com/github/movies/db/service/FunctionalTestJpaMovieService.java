@@ -100,4 +100,75 @@ public class FunctionalTestJpaMovieService
          .containsExactly(movie1, movie2)
       ;
    }
+
+   @Test
+   public void testSavingGenres()
+   {
+      Assertions.fail("Finish");
+      /*
+      @Test testMovieAddingGenres()
+   {
+      Movie movie1 = jpaMovieService.saveMovie(
+         new Movie(
+            title: "test title",
+            description: "test descritpion",
+            theMovieDBid: 1,
+            releaseDate: LocalDate.of(1999, Month.FEBRUARY, 22),
+            genres: [
+               new Genre(
+                  name: "Test Genre 1",
+                  theMovieDBid: 21
+               ),
+               new Genre(
+                  name: "Test Genre 2",
+                  theMovieDBid: 22
+               )
+            ]
+         )
+      )
+      Movie movie2 = jpaMovieService.saveMovie(
+         new Movie(
+            title: "test title 2",
+            description:  "test descritpion 2",
+            theMovieDBid:  1,
+            releaseDate:  LocalDate.of(2000, Month.APRIL, 12),
+            genres: [
+               new Genre(
+                  name: "Test Genre 1",
+                  theMovieDBid: 21
+               ),
+               new Genre(
+                  name: "Test Genre 3",
+                  theMovieDBid: 23
+               )
+            ]
+         )
+      )
+      jpaMovieService.saveMovie(
+         new Movie(
+            title:  "movie 3",
+            description:  "movie 3 descritpion 3",
+            theMovieDBid:  1,
+            releaseDate: LocalDate.of(2001, Month.AUGUST, 12),
+            genres: [
+               new Genre(
+                  name: "Test Genre 1",
+                  theMovieDBid: 21
+               )
+            ]
+         )
+      )
+
+      def results = jdbc.query("SELECT id, name") { rs, row ->
+         return [
+            id: rs.getInt("id"),
+            name: rs.getString("name")
+         ]
+      }
+
+      Assertions.assertThat(results)
+         .hasSize(3)
+   }
+       */
+   }
 }

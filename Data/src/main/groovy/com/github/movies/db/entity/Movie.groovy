@@ -52,7 +52,7 @@ class Movie extends Storable
    @JoinTable(name = "movie_genre",
       joinColumns = @JoinColumn(name = "movie_id", referencedColumnName = "id"),
       inverseJoinColumns = @JoinColumn(name = "genre_id", referencedColumnName = "id"))
-   List<Genre> genres = new ArrayList<>()
+   List<Genre> genres = []
 
    Movie()
    {
@@ -61,10 +61,16 @@ class Movie extends Storable
 
    Movie(String title, String description, int theMovieDBid, LocalDate releaseDate)
    {
+      this(title, description, theMovieDBid, releaseDate, [])
+   }
+
+   Movie(String title, String description, LocalDate releaseDate, int theMovieDBid, List<Genre> genres)
+   {
       this.title = title
       this.description = description
-      this.theMovieDBid = theMovieDBid
       this.releaseDate = releaseDate
+      this.theMovieDBid = theMovieDBid
+      this.genres = genres
    }
 
    @JsonProperty(value = "id")
