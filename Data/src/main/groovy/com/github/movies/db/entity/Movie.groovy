@@ -52,7 +52,7 @@ class Movie extends Storable
    @JoinTable(name = "movie_genre",
       joinColumns = @JoinColumn(name = "movie_id", referencedColumnName = "id"),
       inverseJoinColumns = @JoinColumn(name = "genre_id", referencedColumnName = "id"))
-   List<Genre> genres
+   List<Genre> genres = new ArrayList<>()
 
    Movie()
    {
