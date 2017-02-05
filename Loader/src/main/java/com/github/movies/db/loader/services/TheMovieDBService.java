@@ -1,7 +1,7 @@
 package com.github.movies.db.loader.services;
 
 import com.github.movies.db.entity.Movie;
-import com.github.movies.db.entity.Person;
+import com.github.movies.db.entity.Credit;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,5 +14,5 @@ import java.util.Optional;
 public interface TheMovieDBService
 {
    Optional<Movie> loadMovie(int id);
-   List<Person> loadDirectors(Movie movie);
+   List<Credit> loadCredits(Movie movie);
 }

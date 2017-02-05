@@ -13,7 +13,7 @@ import java.time.format.DateTimeFormatter;
  *
  * Simple {@link JsonDeserializer} for parsing out the release date from The Movie DB's API
  */
-public class MovieReleaseDateDeserializer extends JsonDeserializer<LocalDate>
+public class LocalDateJsonDeserialzier extends JsonDeserializer<LocalDate>
 {
    private static final DateTimeFormatter releaseDateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 

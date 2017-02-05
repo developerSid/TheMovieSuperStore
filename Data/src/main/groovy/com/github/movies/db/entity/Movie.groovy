@@ -3,7 +3,7 @@ package com.github.movies.db.entity
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.github.movies.db.json.deserializer.MovieReleaseDateDeserializer
+import com.github.movies.db.json.deserializer.LocalDateJsonDeserialzier
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.Sortable
 import groovy.transform.ToString
@@ -18,7 +18,6 @@ import javax.persistence.Lob
 import javax.persistence.ManyToMany
 import javax.persistence.NamedAttributeNode
 import javax.persistence.NamedEntityGraph
-import javax.persistence.NamedSubgraph
 import javax.persistence.Table
 import javax.validation.constraints.Size
 import java.time.LocalDate
@@ -29,7 +28,7 @@ import java.time.LocalDate
  * Represents a movie
  */
 @Entity
-@Sortable(excludes = "genres")
+@Sortable(excludes = ["genres", "directors"])
 @EqualsAndHashCode
 @ToString(includeNames = true, includeFields = true)
 @Table(name = "movie", indexes = @Index(columnList = "title"))
@@ -48,7 +47,7 @@ class Movie extends Storable
    String description
 
    @Column
-   @JsonDeserialize(using = MovieReleaseDateDeserializer.class)
+   @JsonDeserialize(using = LocalDateJsonDeserialzier.class)
    @JsonProperty(value = "release_date")
    LocalDate releaseDate
 
@@ -59,8 +58,16 @@ class Movie extends Storable
    @ManyToMany(cascade = CascadeType.ALL)
    @JoinTable(name = "movie_genre",
       joinColumns = @JoinColumn(name = "movie_id", referencedColumnName = "id"),
-      inverseJoinColumns = @JoinColumn(name = "genre_id", referencedColumnName = "id"))
+      inverseJoinColumns = @JoinColumn(name = "genre_id", referencedColumnName = "id")
+   )
    List<Genre> genres = []
+
+   @ManyToMany(cascade = CascadeType.ALL)
+   @JoinTable(name = "movie_director",
+      joinColumns = @JoinColumn(name = "movie_id", referencedColumnName = "id"),
+      inverseJoinColumns = @JoinColumn(name = "director_id", referencedColumnName = "id")
+   )
+   List<Credit> directors = []
 
    Movie()
    {
@@ -69,16 +76,17 @@ class Movie extends Storable
 
    Movie(String title, String description, int theMovieDBid, LocalDate releaseDate)
    {
-      this(title, description, releaseDate, theMovieDBid, [])
+      this(title, description, releaseDate, theMovieDBid, [], [])
    }
 
-   Movie(String title, String description, LocalDate releaseDate, int theMovieDBid, List<Genre> genres)
+   Movie(String title, String description, LocalDate releaseDate, int theMovieDBid, List<Genre> genres, List<Credit> directors)
    {
       this.title = title
       this.description = description
       this.releaseDate = releaseDate
       this.theMovieDBid = theMovieDBid
       this.genres = genres
+      this.directors = directors
    }
 
    @JsonProperty(value = "id")

@@ -1,9 +1,9 @@
 package com.github.movies.db.loader.processor;
 
 import com.github.movies.db.entity.Movie;
-import com.github.movies.db.entity.Person;
+import com.github.movies.db.entity.Credit;
 import com.github.movies.db.loader.services.TheMovieDBService;
-import com.github.movies.db.service.PersonService;
+import com.github.movies.db.service.CreditService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -16,22 +16,22 @@ import java.util.function.Function;
  * Loads directors associated with a movie and saves them to the the storage
  */
 @Component
-public class LoadDirectorsProcessor implements Function<Movie, Movie>
+public class LoadCreditsProcessor implements Function<Movie, Movie>
 {
-   private final PersonService personService;
+   private final CreditService creditService;
    private final TheMovieDBService theMovieDBService;
 
    @Autowired
-   public LoadDirectorsProcessor(PersonService personService, TheMovieDBService theMovieDBService)
+   public LoadCreditsProcessor(CreditService creditService, TheMovieDBService theMovieDBService)
    {
-      this.personService = personService;
+      this.creditService=creditService;
       this.theMovieDBService = theMovieDBService;
    }
 
    @Override
    public Movie apply(Movie movie)
    {
-      List<Person> directors = theMovieDBService.loadDirectors(movie);
+      List<Credit> directors = theMovieDBService.loadCredits(movie);
 
       return movie;
    }

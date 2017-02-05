@@ -3,33 +3,25 @@ package com.github.movies.db.service;
 import com.github.movies.TestConfiguration;
 import com.github.movies.db.entity.Genre;
 import com.github.movies.db.entity.Movie;
-import com.github.movies.db.repository.MovieRepository;
-import com.google.common.collect.Streams;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Created by developerSid on 2/1/17.
@@ -131,7 +123,8 @@ public class FunctionalTestJpaMovieService
                   "Test Genre 2",
                   22
                )
-            )
+            ),
+            Collections.emptyList()
          )
       );
       Movie movieTwo = jpaMovieService.saveMovie(
@@ -149,7 +142,8 @@ public class FunctionalTestJpaMovieService
                   "Test Genre 3",
                   23
                )
-            )
+            ),
+            Collections.emptyList()
          )
       );
       Movie movieThree = jpaMovieService.saveMovie(
@@ -163,7 +157,8 @@ public class FunctionalTestJpaMovieService
                   "Test Genre 1",
                   21
                )
-            )
+            ),
+            Collections.emptyList()
          )
       );
 

@@ -1,15 +1,16 @@
 package com.github.movies.db.repository;
 
-import com.github.movies.db.entity.Person;
+import com.github.movies.db.entity.Credit;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 /**
  * Created by developerSid on 1/12/17.
  *
- * The {@link Person} repository
+ * The {@link Credit} repository
  */
 @Repository
-public interface PersonRepository extends PagingAndSortingRepository<Person, Long>
+public interface CreditRepository extends PagingAndSortingRepository<Credit, Long>
 {
+   
 }

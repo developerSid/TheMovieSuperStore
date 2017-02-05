@@ -1,6 +1,6 @@
 package com.github.movies.db.service;
 
-import com.github.movies.db.entity.Person;
+import com.github.movies.db.entity.Credit;
 
 import java.util.Optional;
 
@@ -9,7 +9,7 @@ import java.util.Optional;
  *
  * Describes the operations provided for saving and loading people
  */
-public interface PersonService
+public interface CreditService
 {
-   Optional<Person> save(Person person);
+   Optional<Credit> save(Credit credit);
 }
