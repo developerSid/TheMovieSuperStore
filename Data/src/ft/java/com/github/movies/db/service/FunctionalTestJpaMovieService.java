@@ -173,13 +173,13 @@ public class FunctionalTestJpaMovieService
          .collect(Collectors.toList())
       ;
 
-      List<Genre> results = jdbc.query("SELECT id, name, the_movie_db_id FROM Genre", (rs, rowNum) ->
+      List<Genre> results = jdbc.query("SELECT id, name, tmdb_id FROM Genre", (rs, rowNum) ->
       {
          Genre toReturn = new Genre();
 
          toReturn.setId(rs.getLong("id"));
          toReturn.setName(rs.getString("name"));
-         toReturn.setTheMovieDBid(rs.getInt("the_movie_db_id"));
+         toReturn.setTheMovieDBid(rs.getInt("tmdb_id"));
 
          return toReturn;
       });

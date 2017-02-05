@@ -28,7 +28,7 @@ class Genre extends Storable
    @Column(unique = true)
    String name
 
-   @Column(name = "the_movie_db_id")
+   @Column(name = "tmdb_id")
    @JsonProperty(value = "id")
    Integer theMovieDBid
 

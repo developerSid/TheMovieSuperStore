@@ -16,4 +16,5 @@ public interface MovieService
    Movie saveMovie(Movie movie);
    List<Movie> findMovie(String title, Pageable pageable);
    Optional<Movie> findMovie(Long id);
+   Optional<Movie> loadMovieGraph(Long id);
 }

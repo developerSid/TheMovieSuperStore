@@ -16,6 +16,9 @@ import javax.persistence.JoinColumn
 import javax.persistence.JoinTable
 import javax.persistence.Lob
 import javax.persistence.ManyToMany
+import javax.persistence.NamedAttributeNode
+import javax.persistence.NamedEntityGraph
+import javax.persistence.NamedSubgraph
 import javax.persistence.Table
 import javax.validation.constraints.Size
 import java.time.LocalDate
@@ -31,6 +34,10 @@ import java.time.LocalDate
 @ToString(includeNames = true, includeFields = true)
 @Table(name = "movie", indexes = @Index(columnList = "title"))
 @JsonIgnoreProperties(ignoreUnknown = true)
+@NamedEntityGraph(
+   name = "graph.movies.complete",
+   attributeNodes = @NamedAttributeNode(value = "genres", subgraph = "genres")
+)
 class Movie extends Storable
 {
    @Size(min = 2, max = 150) //TODO build up validation configuration
@@ -45,7 +52,7 @@ class Movie extends Storable
    @JsonProperty(value = "release_date")
    LocalDate releaseDate
 
-   @Column(name = "the_movie_db_id")
+   @Column(name = "tmdb_id")
    @JsonProperty(value = "id")
    int theMovieDBid
 

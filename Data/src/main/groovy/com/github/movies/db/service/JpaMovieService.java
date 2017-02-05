@@ -50,4 +50,10 @@ public class JpaMovieService implements MovieService
    {
       return Optional.ofNullable(movieRepository.findOne(id));
    }
+
+   @Override
+   public Optional<Movie> loadMovieGraph(Long id)
+   {
+      return movieRepository.findMovieById(id);
+   }
 }

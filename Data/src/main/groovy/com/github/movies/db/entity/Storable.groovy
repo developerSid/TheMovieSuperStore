@@ -9,7 +9,7 @@ import java.time.LocalDateTime
 /**
  * Created by developerSid on 1/28/17.
  *
- * Contains the basic components of all the Enties described by the system.
+ * Contains the basic components of all the Entities described by the system.
  */
 @MappedSuperclass
 abstract class Storable implements Serializable

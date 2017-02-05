@@ -7,9 +7,12 @@ dependencies {
    compile 'org.springframework.boot:spring-boot-starter-data-rest'
    compile 'org.springframework:spring-web'
    compile 'com.fasterxml.jackson.core:jackson-databind'
+   compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
 
    compile 'mysql:mysql-connector-java:5.1.40'
    compile 'org.postgresql:postgresql:9.4.1208'
    compile 'com.microsoft.sqlserver:mssql-jdbc:6.1.0.jre8'
    compile 'com.h2database:h2'
+   
+   testCompile 'org.springframework.boot:spring-boot-devtools'
 }
