@@ -2,6 +2,7 @@ package com.github.movies.db.loader.processor;
 
 import com.github.movies.db.entity.Movie;
 import com.github.movies.db.entity.Credit;
+import com.github.movies.db.entity.copy.ObjectCopying;
 import com.github.movies.db.loader.services.TheMovieDBService;
 import com.github.movies.db.service.CreditService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,18 +21,22 @@ public class LoadCreditsProcessor implements Function<Movie, Movie>
 {
    private final CreditService creditService;
    private final TheMovieDBService theMovieDBService;
+   private final ObjectCopying objectCopying;
 
    @Autowired
-   public LoadCreditsProcessor(CreditService creditService, TheMovieDBService theMovieDBService)
+   public LoadCreditsProcessor(CreditService creditService, TheMovieDBService theMovieDBService, ObjectCopying objectCopying)
    {
-      this.creditService=creditService;
+      this.creditService = creditService;
       this.theMovieDBService = theMovieDBService;
+      this.objectCopying = objectCopying;
    }
 
    @Override
    public Movie apply(Movie movie)
    {
-      List<Credit> directors = theMovieDBService.loadCredits(movie);
+      List<Credit> credits = theMovieDBService.loadCredits(movie);
+
+      movie = objectCopying.copy(movie);
 
       return movie;
    }
