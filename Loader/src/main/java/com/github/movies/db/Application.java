@@ -1,6 +1,11 @@
 package com.github.movies.db;
 
+import com.github.movies.db.entity.Movie;
+import com.github.movies.db.loader.processor.LoadCreditsProcessor;
 import com.github.movies.db.loader.processor.LoadMovieProcessor;
+import com.github.movies.db.service.CreditService;
+import com.github.movies.db.service.MovieService;
+import java.util.Optional;
 import java.util.stream.IntStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,10 +34,23 @@ public class Application
 
       try(ConfigurableApplicationContext ac = SpringApplication.run(Application.class, args))
       {
+         final MovieService movieService = ac.getBean(MovieService.class);
+         final CreditService creditService = ac.getBean(CreditService.class);
          final LoadMovieProcessor loadMovieEventConsumer = ac.getBean(LoadMovieProcessor.class);
+         final LoadCreditsProcessor loadCreditsProcessor = ac.getBean(LoadCreditsProcessor.class);
 
          logger.info("Loading movies");
-         IntStream.of(330459, 603, 10249, 9942, 154, 272, 137106, 11528, 284052, 1726).forEach(loadMovieEventConsumer::apply);
+         IntStream.of(330459, 603, 10249, 9942, 154, 272, 137106, 11528, 284052, 1726).boxed()
+            .map(loadMovieEventConsumer)
+            .filter(Optional::isPresent)
+            .map(Optional::get)
+            .map(movieService::saveMovie)
+            .map(loadCreditsProcessor)
+            .map(creditService::saveAll)
+            .map(movieService::saveMovie)
+            .map(Movie::getTitle)
+            .forEach(System.out::println);
+         ;
          logger.info("Loaded all movies");
       }
       catch(Exception e)

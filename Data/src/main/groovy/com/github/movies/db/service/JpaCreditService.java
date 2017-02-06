@@ -1,11 +1,10 @@
 package com.github.movies.db.service;
 
 import com.github.movies.db.entity.Credit;
+import com.github.movies.db.entity.Movie;
 import com.github.movies.db.repository.CreditRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 /**
  * Created by developerSid on 1/12/17.
@@ -23,8 +22,14 @@ public class JpaCreditService implements CreditService
    }
 
    @Override
-   public Optional<Credit> save(Credit credit)
+   public Credit save(Credit credit)
    {
-      return Optional.ofNullable(creditRepository.save(credit));
+      return creditRepository.save(credit);
+   }
+
+   @Override
+   public Movie saveAll(Movie movie)
+   {
+      return null;
    }
 }

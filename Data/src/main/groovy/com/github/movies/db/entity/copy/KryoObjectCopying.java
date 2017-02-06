@@ -1,6 +1,9 @@
 package com.github.movies.db.entity.copy;
 
 import com.esotericsoftware.kryo.Kryo;
+import com.esotericsoftware.kryo.Serializer;
+import com.esotericsoftware.kryo.serializers.FieldSerializer;
+import org.hibernate.collection.internal.AbstractPersistentCollection;
 import org.springframework.stereotype.Service;
 
 /**
@@ -13,7 +16,19 @@ public class KryoObjectCopying implements ObjectCopying
 {
    private static final ThreadLocal<Kryo> kryos = ThreadLocal.withInitial(() ->
    {
-      Kryo kryo = new Kryo();
+      Kryo kryo = new Kryo()
+      {
+         @Override
+         public Serializer getDefaultSerializer(Class type)
+         {
+            if(AbstractPersistentCollection.class.isAssignableFrom(type))
+            {
+               return new FieldSerializer(this, type);
+            }
+
+            return super.getDefaultSerializer(type);
+         }
+      };
 
       return kryo;
    });

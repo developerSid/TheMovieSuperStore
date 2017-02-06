@@ -2,7 +2,7 @@ package com.github.movies.db.service;
 
 import com.github.movies.db.entity.Credit;
 
-import java.util.Optional;
+import com.github.movies.db.entity.Movie;
 
 /**
  * Created by developerSid on 1/12/17.
@@ -11,5 +11,6 @@ import java.util.Optional;
  */
 public interface CreditService
 {
-   Optional<Credit> save(Credit credit);
+   Credit save(Credit credit);
+   Movie saveAll(Movie movie);
 }

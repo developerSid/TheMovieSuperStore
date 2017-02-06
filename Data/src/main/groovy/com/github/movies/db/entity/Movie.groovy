@@ -69,6 +69,13 @@ class Movie extends Storable
    )
    List<Credit> directors = []
 
+   @ManyToMany(cascade = CascadeType.ALL)
+   @JoinTable(name = "movie_cast",
+      joinColumns = @JoinColumn(name = "movie_id", referencedColumnName = "id"),
+      inverseJoinColumns = @JoinColumn(name = "cast_id", referencedColumnName = "id")
+   )
+   List<Credit> cast = []
+
    Movie()
    {
 

@@ -18,22 +18,16 @@ import java.util.function.Function;
 public class LoadMovieProcessor implements Function<Integer, Optional<Movie>>
 {
    private final TheMovieDBService theMovieDBService;
-   private final MovieService movieService;
 
    @Autowired
-   public LoadMovieProcessor(TheMovieDBService theMovieDBService, MovieService movieService)
+   public LoadMovieProcessor(TheMovieDBService theMovieDBService)
    {
       this.theMovieDBService = theMovieDBService;
-      this.movieService = movieService;
    }
 
    @Override
    public Optional<Movie> apply(Integer movieId)
    {
-      Optional<Movie> movie = theMovieDBService.loadMovie(movieId).map(movieService::saveMovie);
-
-      //movie.ifPresent();
-
-      return movie;
+      return theMovieDBService.loadMovie(movieId);
    }
 }

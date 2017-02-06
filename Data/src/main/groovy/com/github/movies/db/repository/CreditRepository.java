@@ -1,6 +1,7 @@
 package com.github.movies.db.repository;
 
 import com.github.movies.db.entity.Credit;
+import java.util.List;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
@@ -12,5 +13,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CreditRepository extends PagingAndSortingRepository<Credit, Long>
 {
-   
+   List<Credit> findByNameInOrderByNameAsc(Iterable<String> creditNames);
 }

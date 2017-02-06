@@ -5,6 +5,8 @@ import com.github.movies.db.entity.Credit;
 import com.github.movies.db.entity.copy.ObjectCopying;
 import com.github.movies.db.loader.services.TheMovieDBService;
 import com.github.movies.db.service.CreditService;
+import java.util.Objects;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -37,6 +39,18 @@ public class LoadCreditsProcessor implements Function<Movie, Movie>
       List<Credit> credits = theMovieDBService.loadCredits(movie);
 
       movie = objectCopying.copy(movie);
+
+      for(Credit credit: credits)
+      {
+         if(StringUtils.equalsIgnoreCase("director", credit.getJob()))
+         {
+            movie.getDirectors().add(credit);
+         }
+         else
+         {
+            movie.getCast().add(credit);
+         }
+      }
 
       return movie;
    }

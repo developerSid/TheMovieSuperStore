@@ -7,6 +7,7 @@ import groovy.transform.ToString
 
 import javax.persistence.Column
 import javax.persistence.Entity
+import javax.persistence.Index
 import javax.persistence.Table
 import javax.validation.constraints.Size
 
@@ -19,7 +20,7 @@ import javax.validation.constraints.Size
 @Sortable
 @EqualsAndHashCode
 @ToString(includeNames = true, includeFields = true)
-@Table(name = "person")
+@Table(name = "credit", indexes = @Index(columnList = "name"))
 class Credit extends Storable
 {
    @Size(min = 2, max = 150)
