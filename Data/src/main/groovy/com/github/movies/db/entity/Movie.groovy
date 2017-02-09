@@ -28,7 +28,7 @@ import java.time.LocalDate
  * Represents a movie
  */
 @Entity
-@Sortable(excludes = ["genres", "directors"])
+@Sortable(excludes = ["genres", "directors", "cast"])
 @EqualsAndHashCode
 @ToString(includeNames = true, includeFields = true)
 @Table(name = "movie", indexes = @Index(columnList = "title"))

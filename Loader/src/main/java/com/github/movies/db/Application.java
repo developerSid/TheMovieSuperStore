@@ -49,7 +49,7 @@ public class Application
             .map(creditService::saveAll)
             .map(movieService::saveMovie)
             .map(Movie::getTitle)
-            .forEach(System.out::println);
+            .forEach(System.out::println)
          ;
          logger.info("Loaded all movies");
       }
