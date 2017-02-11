@@ -32,7 +32,7 @@ public class JpaMovieService implements MovieService
    @Override
    public Movie saveMovie(Movie movie)
    {
-      List<Genre> savedGenres = genreService.save(movie.getGenres());
+      List<Genre> savedGenres = genreService.saveAll(movie.getGenres());
 
       movie.setGenres(savedGenres);
 

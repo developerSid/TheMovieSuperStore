@@ -57,7 +57,7 @@ public class FunctionalTestJpaMovieService
    @Test
    public void testSave()
    {
-      Movie toSave = new Movie("test title save", "test description save", 2, LocalDate.of(2000, Month.APRIL, 12));
+      Movie toSave = new Movie("test title saveAll", "test description saveAll", 2, LocalDate.of(2000, Month.APRIL, 12));
 
       Movie saved = jpaMovieService.saveMovie(toSave);
 

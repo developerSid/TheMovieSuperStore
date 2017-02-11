@@ -51,7 +51,7 @@ public class UnitTestJpaGenreService
       Mockito.when(genreRepository.findByNameInOrderByNameAsc(Arrays.asList("one", "two"))).thenReturn(Collections.emptyList());
       Mockito.when(genreRepository.save(genres)).thenReturn(savedGenres);
 
-      List<Genre> result = genreService.save(genres);
+      List<Genre> result = genreService.saveAll(genres);
 
       Assertions.assertThat(result)
          .isNotEmpty()
@@ -85,7 +85,7 @@ public class UnitTestJpaGenreService
       Mockito.when(genreRepository.findByNameInOrderByNameAsc(Arrays.asList("one", "two"))).thenReturn(Collections.singletonList(savedGenreTwo));
       Mockito.when(genreRepository.save(Collections.singletonList(genreOne))).thenReturn(Collections.singletonList(savedGenreOne));
 
-      List<Genre> result = genreService.save(genres);
+      List<Genre> result = genreService.saveAll(genres);
 
       Assertions.assertThat(result)
          .isNotEmpty()
@@ -121,7 +121,7 @@ public class UnitTestJpaGenreService
 
       Mockito.when(genreRepository.findByNameInOrderByNameAsc(Arrays.asList("one", "two"))).thenReturn(Arrays.asList(savedGenreOne, savedGenreTwo));
 
-      List<Genre> result = genreService.save(genres);
+      List<Genre> result = genreService.saveAll(genres);
 
       Assertions.assertThat(result)
          .isNotEmpty()

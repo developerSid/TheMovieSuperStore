@@ -93,7 +93,7 @@ public class RestfulTheMovieDBService implements TheMovieDBService
    private List<Credit> extractDirector(JsonNode crew)
    {
       return Streams.stream(crew.iterator())
-         .filter(j -> j.get("job").asText("").equalsIgnoreCase("directory"))
+         .filter(j -> j.get("job").asText("").equalsIgnoreCase("director"))
          .map(j ->
             new Credit(
                j.get("name").asText(),

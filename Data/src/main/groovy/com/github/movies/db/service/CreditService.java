@@ -1,8 +1,8 @@
 package com.github.movies.db.service;
 
 import com.github.movies.db.entity.Credit;
-
-import com.github.movies.db.entity.Movie;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by developerSid on 1/12/17.
@@ -12,5 +12,5 @@ import com.github.movies.db.entity.Movie;
 public interface CreditService
 {
    Credit save(Credit credit);
-   Movie saveAll(Movie movie);
+   List<Credit> saveAll(Collection<Credit> credits);
 }

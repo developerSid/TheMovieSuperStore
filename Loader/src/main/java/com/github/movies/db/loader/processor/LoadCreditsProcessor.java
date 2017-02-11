@@ -42,11 +42,11 @@ public class LoadCreditsProcessor implements Function<Movie, Movie>
 
       for(Credit credit: credits)
       {
-         if(StringUtils.equalsIgnoreCase("director", credit.getJob()))
+         if(StringUtils.equalsIgnoreCase("director", credit.getJob().trim()))
          {
             movie.getDirectors().add(credit);
          }
-         else
+         else if(StringUtils.length(credit.getJob()) > 3)
          {
             movie.getCast().add(credit);
          }

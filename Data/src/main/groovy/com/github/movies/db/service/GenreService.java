@@ -11,6 +11,6 @@ import org.springframework.data.domain.Pageable;
  */
 public interface GenreService
 {
-   List<Genre> save(Collection<Genre> genres);
+   List<Genre> saveAll(Collection<Genre> genres);
    Page<Genre> loadAll(Pageable pageable);
 }

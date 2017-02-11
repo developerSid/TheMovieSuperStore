@@ -13,5 +13,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CreditRepository extends PagingAndSortingRepository<Credit, Long>
 {
-   List<Credit> findByNameInOrderByNameAsc(Iterable<String> creditNames);
+   List<Credit> findByTheMovieDBidInOrderByNameAsc(Iterable<Integer> theMovieDBids);
 }

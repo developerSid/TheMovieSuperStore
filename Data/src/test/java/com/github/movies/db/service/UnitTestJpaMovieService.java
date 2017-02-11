@@ -95,10 +95,10 @@ public class UnitTestJpaMovieService
       Assertions.assertThat(result).isEqualTo(saved);
       Assertions.assertThat(result.getId()).isEqualTo(1L);
 
-      Mockito.verify(genreService).save(genres);
+      Mockito.verify(genreService).saveAll(genres);
 
       InOrder inOrder = Mockito.inOrder(genreService, movieRepository);
-      inOrder.verify(genreService, Mockito.calls(1)).save(genres);
+      inOrder.verify(genreService, Mockito.calls(1)).saveAll(genres);
       inOrder.verify(movieRepository, Mockito.calls(1)).save(movie);
       inOrder.verifyNoMoreInteractions();
    }
@@ -128,7 +128,7 @@ public class UnitTestJpaMovieService
 
       InOrder inOrder = Mockito.inOrder(genreService, movieRepository);
 
-      inOrder.verify(genreService, Mockito.never()).save(genres);
+      inOrder.verify(genreService, Mockito.never()).saveAll(genres);
       inOrder.verify(movieRepository, Mockito.calls(1)).findByTitleContainingIgnoreCase("Movie Title", pageable);
       inOrder.verifyNoMoreInteractions();
    }

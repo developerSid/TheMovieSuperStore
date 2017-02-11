@@ -30,7 +30,7 @@ class Credit extends Storable
    @JsonProperty(value = "id")
    int theMovieDBid
 
-   @Size(min = 2, max = 150)
+   @Size(min = 3, max = 150)
    String job
 
    @Size(min = 10, max = 100)

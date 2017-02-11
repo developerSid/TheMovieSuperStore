@@ -33,7 +33,7 @@ public class JpaGenreService implements GenreService
 
    @Override
    @Transactional
-   public List<Genre> save(Collection<Genre> genres)
+   public List<Genre> saveAll(Collection<Genre> genres)
    {
       List<Genre> foundGenres = genreRepository.findByNameInOrderByNameAsc(genres.stream().map(Genre::getName).collect(Collectors.toList()));
       Collection<Genre> toSave = genres;

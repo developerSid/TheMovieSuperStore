@@ -3,6 +3,7 @@ package com.github.movies.db;
 import com.github.movies.db.entity.Movie;
 import com.github.movies.db.loader.processor.LoadCreditsProcessor;
 import com.github.movies.db.loader.processor.LoadMovieProcessor;
+import com.github.movies.db.loader.processor.SaveCreditsProcessor;
 import com.github.movies.db.service.CreditService;
 import com.github.movies.db.service.MovieService;
 import java.util.Optional;
@@ -35,9 +36,9 @@ public class Application
       try(ConfigurableApplicationContext ac = SpringApplication.run(Application.class, args))
       {
          final MovieService movieService = ac.getBean(MovieService.class);
-         final CreditService creditService = ac.getBean(CreditService.class);
          final LoadMovieProcessor loadMovieEventConsumer = ac.getBean(LoadMovieProcessor.class);
          final LoadCreditsProcessor loadCreditsProcessor = ac.getBean(LoadCreditsProcessor.class);
+         final SaveCreditsProcessor saveCreditsProcessor = ac.getBean(SaveCreditsProcessor.class);
 
          logger.info("Loading movies");
          IntStream.of(330459, 603, 10249, 9942, 154, 272, 137106, 11528, 284052, 1726).boxed()
@@ -46,7 +47,7 @@ public class Application
             .map(Optional::get)
             .map(movieService::saveMovie)
             .map(loadCreditsProcessor)
-            .map(creditService::saveAll)
+            .map(saveCreditsProcessor)
             .map(movieService::saveMovie)
             .map(Movie::getTitle)
             .forEach(System.out::println)
