@@ -1,6 +1,7 @@
 package com.github.movies.db.service;
 
 import com.github.movies.TestConfiguration;
+import com.github.movies.db.entity.Credit;
 import com.github.movies.db.entity.Genre;
 import com.github.movies.db.entity.Movie;
 import org.assertj.core.api.Assertions;
@@ -184,5 +185,48 @@ public class FunctionalTestJpaMovieService
          .hasSize(3)
          .containsExactlyElementsOf(genres)
       ;
+   }
+
+   @Test
+   public void testDirectorQuery()
+   {
+      Credit directorOne = new Credit("director prime", 1, "Director", "JDKJFOIJOIJKJFIJE88988080");
+      Credit directorTwo = new Credit("director subprime", 1, "Director", "IEUFJIEFJOIJFE998U9898U44F");
+
+
+      Stream.of(
+         new Movie(
+            "test title",
+            "test description",
+            LocalDate.of(1999, Month.FEBRUARY, 22),
+            1,
+            Collections.emptyList(),
+            Collections.singletonList(directorOne)
+         ),
+         new Movie(
+            "test title 2",
+            "test description 2",
+            LocalDate.of(2000, Month.APRIL, 12),
+            1,
+            Collections.emptyList(),
+            Collections.singletonList(directorTwo)
+         ),
+         new Movie(
+            "movie 3",
+            "movie 3 description 3",
+            LocalDate.of(2001, Month.AUGUST, 12),
+            1,
+            Collections.emptyList(),
+            Collections.singletonList(directorOne)
+         )
+      ).forEach(jpaMovieService::saveMovie);
+
+      List<Movie> movies = jpaMovieService.findByDirectorName("director prime");
+
+      Assertions.assertThat(movies).hasSize(2);
+      Assertions.assertThat(movies.get(0)).hasNoNullFieldsOrProperties();
+      Assertions.assertThat(movies.get(0).getTitle()).isEqualTo("test title");
+      Assertions.assertThat(movies.get(1)).hasNoNullFieldsOrProperties();
+      Assertions.assertThat(movies.get(1).getTitle()).isEqualTo("movie 3");
    }
 }

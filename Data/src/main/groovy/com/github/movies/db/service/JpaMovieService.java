@@ -56,4 +56,10 @@ public class JpaMovieService implements MovieService
    {
       return movieRepository.findMovieById(id);
    }
+
+   @Override
+   public List<Movie> findByDirectorName(String directorName)
+   {
+      return movieRepository.findAllMoviesByDirector(directorName);
+   }
 }

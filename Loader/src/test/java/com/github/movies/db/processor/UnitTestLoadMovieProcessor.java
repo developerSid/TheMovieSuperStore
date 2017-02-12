@@ -25,7 +25,7 @@ public class UnitTestLoadMovieProcessor
    {
       theMovieDBService = Mockito.mock(TheMovieDBService.class);
       movieService = Mockito.mock(MovieService.class);
-      loadMovieProcessor = new LoadMovieProcessor(theMovieDBService, movieService);
+      loadMovieProcessor = new LoadMovieProcessor(theMovieDBService);
    }
 
    @Test

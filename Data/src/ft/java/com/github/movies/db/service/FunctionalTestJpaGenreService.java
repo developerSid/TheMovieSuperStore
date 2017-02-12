@@ -27,8 +27,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 @ContextConfiguration(classes = TestConfiguration.class)
 public class FunctionalTestJpaGenreService
 {
-   @Autowired JpaGenreService jpaGenreService;
-   @Autowired GenreRepository genreRepository;
+   @Autowired private JpaGenreService jpaGenreService;
+   @Autowired private GenreRepository genreRepository;
 
    @Test
    public void testSavingGenres()
@@ -71,5 +71,8 @@ public class FunctionalTestJpaGenreService
          .hasSize(3)
          .containsExactly(savedGenres.toArray(new Genre[3]))
       ;
+      Assertions.assertThat(savedGenres.get(0).getId()).isGreaterThan(0);
+      Assertions.assertThat(savedGenres.get(1).getId()).isGreaterThan(0);
+      Assertions.assertThat(savedGenres.get(2).getId()).isGreaterThan(0);
    }
 }
