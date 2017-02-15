@@ -4,12 +4,12 @@ import com.github.movies.TestConfiguration;
 import com.github.movies.db.entity.Credit;
 import com.github.movies.db.entity.Genre;
 import com.github.movies.db.entity.Movie;
+import com.github.movies.db.repository.MovieRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ContextConfiguration;
@@ -34,14 +34,14 @@ import java.util.stream.Stream;
 @ContextConfiguration(classes = TestConfiguration.class)
 public class FunctionalTestJpaMovieService
 {
-   @Autowired private TestEntityManager entityManager;
+   @Autowired private MovieRepository movieRepository;
    @Autowired private JpaMovieService jpaMovieService;
    @Autowired private JdbcTemplate jdbc;
 
    @Test
    public void testFindById()
    {
-      Movie persisted = entityManager.persist(
+      Movie persisted = movieRepository.save(
          new Movie(
             "test title",
             "test descritpion",
@@ -64,7 +64,7 @@ public class FunctionalTestJpaMovieService
 
       Assertions.assertThat(saved).isNotNull();
 
-      Movie entityManagerSaved = entityManager.find(Movie.class, saved.getId());
+      Movie entityManagerSaved = movieRepository.findOne(saved.getId());
 
       Assertions.assertThat(saved).isEqualTo(entityManagerSaved);
    }
@@ -72,7 +72,7 @@ public class FunctionalTestJpaMovieService
    @Test
    public void testFindByTitle()
    {
-      Movie movie1 = entityManager.persist(
+      Movie movie1 = movieRepository.save(
          new Movie(
             "test title",
             "test description",
@@ -80,7 +80,7 @@ public class FunctionalTestJpaMovieService
             LocalDate.of(1999, Month.FEBRUARY, 22)
          )
       );
-      Movie movie2 = entityManager.persist(
+      Movie movie2 = movieRepository.save(
          new Movie(
             "test title 2",
             "test description 2",
@@ -88,7 +88,7 @@ public class FunctionalTestJpaMovieService
             LocalDate.of(2000, Month.APRIL, 12)
          )
       );
-      entityManager.persist(
+      movieRepository.save(
          new Movie(
             "movie 3",
             "movie 3 description 3",

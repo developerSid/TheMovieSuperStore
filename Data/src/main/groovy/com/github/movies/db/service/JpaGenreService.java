@@ -2,7 +2,6 @@ package com.github.movies.db.service;
 
 import com.github.movies.db.entity.Genre;
 import com.github.movies.db.repository.GenreRepository;
-import com.google.common.collect.Streams;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -53,10 +52,11 @@ public class JpaGenreService implements GenreService
 
       if(!toSave.isEmpty())
       {
-         return Streams.concat(
-            Streams.stream(genreRepository.save(toSave)),
-            foundGenres.stream()
-         ).collect(Collectors.toList());
+         List<Genre> toReturn = new ArrayList<>(genreRepository.save(toSave));
+
+         toReturn.addAll(foundGenres);
+
+         return toReturn;
       }
       else
       {

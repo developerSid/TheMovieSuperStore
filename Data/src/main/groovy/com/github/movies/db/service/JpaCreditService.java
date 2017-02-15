@@ -1,17 +1,13 @@
 package com.github.movies.db.service;
 
 import com.github.movies.db.entity.Credit;
-import com.github.movies.db.entity.Genre;
-import com.github.movies.db.entity.Movie;
 import com.github.movies.db.repository.CreditRepository;
-import com.google.common.collect.Streams;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -57,10 +53,11 @@ public class JpaCreditService implements CreditService
 
       if(!toSave.isEmpty())
       {
-         return Streams.concat(
-            Streams.stream(creditRepository.save(toSave)),
-            foundCredits.stream()
-         ).collect(Collectors.toList());
+         List<Credit> toReturn = new ArrayList<>(creditRepository.save(toSave));
+
+         toReturn.addAll(foundCredits);
+
+         return toReturn;
       }
       else
       {

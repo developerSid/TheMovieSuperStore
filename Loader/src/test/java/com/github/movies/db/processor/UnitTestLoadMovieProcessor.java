@@ -17,14 +17,12 @@ import org.mockito.Mockito;
 public class UnitTestLoadMovieProcessor
 {
    private TheMovieDBService theMovieDBService;
-   private MovieService movieService;
    private LoadMovieProcessor loadMovieProcessor;
 
    @Before
    public void before()
    {
       theMovieDBService = Mockito.mock(TheMovieDBService.class);
-      movieService = Mockito.mock(MovieService.class);
       loadMovieProcessor = new LoadMovieProcessor(theMovieDBService);
    }
 
@@ -32,29 +30,22 @@ public class UnitTestLoadMovieProcessor
    public void testMovieLoaded_Successful()
    {
       Movie movie = new Movie();
-      Movie saved = new Movie();
-      saved.setId(1L);
 
       Mockito.when(theMovieDBService.loadMovie(1)).thenReturn(Optional.of(movie));
-      Mockito.when(movieService.saveMovie(movie)).thenReturn(saved);
 
       Optional<Movie> result = loadMovieProcessor.apply(1);
 
       Assertions.assertThat(result)
          .isPresent()
-         .containsSame(saved)
       ;
 
-      InOrder inOrder = Mockito.inOrder(theMovieDBService, movieService);
+      InOrder inOrder = Mockito.inOrder(theMovieDBService);
       inOrder.verify(theMovieDBService, Mockito.calls(1)).loadMovie(1);
-      inOrder.verify(movieService, Mockito.calls(1)).saveMovie(movie);
    }
 
    @Test
    public void testMovieLoaded_Failure()
    {
-      Movie movie = new Movie();
-
       Mockito.when(theMovieDBService.loadMovie(1)).thenReturn(Optional.empty());
 
       Optional<Movie> result = loadMovieProcessor.apply(1);
@@ -63,10 +54,9 @@ public class UnitTestLoadMovieProcessor
          .isNotPresent()
       ;
 
-      InOrder inOrder = Mockito.inOrder(theMovieDBService, movieService);
+      InOrder inOrder = Mockito.inOrder(theMovieDBService);
 
       inOrder.verify(theMovieDBService, Mockito.calls(1)).loadMovie(1);
-      inOrder.verify(movieService, Mockito.never()).saveMovie(movie);
       inOrder.verifyNoMoreInteractions();
    }
 }

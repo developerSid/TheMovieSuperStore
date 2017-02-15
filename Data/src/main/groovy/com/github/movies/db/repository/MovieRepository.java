@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.EntityGraph.EntityGraphType;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
@@ -18,7 +19,7 @@ import java.util.List;
  * The {@link Movie} repository
  */
 @Repository
-public interface MovieRepository extends PagingAndSortingRepository<Movie, Long>
+public interface MovieRepository extends JpaRepository<Movie, Long>
 {
    List<Movie> findByTitleContainingIgnoreCase(@Param("title") String title, Pageable pageable);
 
